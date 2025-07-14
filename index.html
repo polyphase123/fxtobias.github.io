@@ -105,17 +105,17 @@
                  <div class="w-full">
                     <label for="battery-hours" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
                         <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Hours of Battery Use
+                        Max Amps of Battery Use
                     </label>
                      <div class="relative mt-1">
                         <select id="battery-hours" class="form-select w-full px-4 py-3 border border-slate-300 rounded-lg transition duration-200">
-                            <option value="8" selected>8 hours</option>
+                            <option value="8">8 hours</option>
                             <option value="7">7 hours</option>
                             <option value="6">6 hours</option>
                             <option value="5">5 hours</option>
                             <option value="4">4 hours</option>
                             <option value="3">3 hours</option>
-                            <option value="2">2 hours</option>
+                            <option value="2" selected>2 hours</option>
                             <option value="1">1 hour</option>
                         </select>
                     </div>
@@ -131,22 +131,29 @@
         <!-- Assumptions Section -->
         <div class="bg-slate-100 p-4 rounded-lg mb-8">
             <h3 class="font-bold text-slate-700 text-center mb-3">Key Assumptions</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 text-sm text-slate-600">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-slate-600">
                 <div class="assumption-item">
-                    <label for="utility-rate" class="font-medium text-slate-700">Distribution Utility Rate (/kWh)</label>
+                    <label for="utility-rate" class="font-medium text-slate-700">Utility Rate (/kWh)</label>
                     <div class="rate-input-wrapper">
                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
                         <input type="number" id="utility-rate" step="0.01" class="rate-input">
                     </div>
                 </div>
                  <div class="assumption-item">
-                    <label for="export-rate" class="font-medium text-slate-700">Net-Metering Export Rate (/kWh)</label>
+                    <label for="export-rate" class="font-medium text-slate-700">Export Rate (/kWh)</label>
                      <div class="rate-input-wrapper">
                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
                         <input type="number" id="export-rate" step="0.01" class="rate-input">
                     </div>
                 </div>
-                <div>
+                <div class="assumption-item">
+                    <label for="usage-time" class="font-medium text-slate-700">Daytime or Nighttime Use</label>
+                    <select id="usage-time" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200">
+                        <option value="nighttime" selected>Nighttime</option>
+                        <option value="daytime">Daytime</option>
+                    </select>
+                </div>
+                <div class="lg:pl-4">
                     <div class="font-medium text-slate-700 mb-1">
                         <strong>Environmental Impact (Annual per kWp):</strong>
                     </div>
@@ -187,7 +194,7 @@
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Environmental Impact (Annual)</h3>
                     <div id="bawas-env" class="space-y-3"></div>
 
-                    <p class="text-xs text-slate-500 mt-6">*Savings are based on an estimated 60% self-consumption of generated power, as excess power is not exported for credit in this setup.</p>
+                    <p id="grid-tie-disclaimer" class="text-xs text-slate-500 mt-6">*Savings are based on an estimated 40% self-consumption of generated power, as excess power is not exported for credit in this setup.</p>
                 </div>
 
                 <!-- Plan 2 Card -->
@@ -214,7 +221,7 @@
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Environmental Impact (Annual)</h3>
                     <div id="zero-env" class="space-y-3"></div>
 
-                    <p class="text-xs text-slate-500 mt-6">**Savings are based on an estimated 60% self-consumption and an export rate of ₱5.49/kWh.</p>
+                    <p id="net-metering-disclaimer" class="text-xs text-slate-500 mt-6">**Savings are based on an estimated 40% self-consumption and an export rate of ₱5.49/kWh.</p>
                 </div>
             </div>
         </div>
@@ -234,8 +241,16 @@
         const CONFIG = {
             DU_TOTAL_CUSTOMER_CHARGE: 12.5718, // PHP/kWh
             NET_METERING_EXPORT_RATE: 5.49,    // PHP/kWh
-            SELF_CONSUMPTION_RATE: 0.60, // 60%
-            SELF_CONSUMPTION_RATE_WITH_BATTERY: 0.90, // 90% with battery
+            SELF_CONSUMPTION: {
+                NO_BATTERY: {
+                    NIGHT: 0.40,
+                    DAY: 0.60
+                },
+                WITH_BATTERY: {
+                    NIGHT: 0.90,
+                    DAY: 0.70 
+                }
+            },
             PANEL_WATTAGE_W: 550,
             PEAK_SUN_HOURS: 4.5,
             DAYS_IN_MONTH: 30.44,
@@ -431,7 +446,7 @@
             return { investment: investmentCost, payback: paybackPeriod };
         }
 
-        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours) {
+        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime) {
             const isNetMeteringPlan = type === 'net_metering';
             
             const inverterSize = selectInverterSize(initialTargetKwp);
@@ -452,7 +467,14 @@
             
             const monthlyKwhGenerated = panelKwp * CONFIG.PEAK_SUN_HOURS * CONFIG.DAYS_IN_MONTH;
             let averageMonthlySavings;
-            const currentSelfConsumption = addBattery ? CONFIG.SELF_CONSUMPTION_RATE_WITH_BATTERY : CONFIG.SELF_CONSUMPTION_RATE;
+            
+            let currentSelfConsumption;
+            if(addBattery) {
+                currentSelfConsumption = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
+            } else {
+                currentSelfConsumption = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
+            }
+
 
             if (isNetMeteringPlan) {
                 const selfConsumedKwh = monthlyKwhGenerated * currentSelfConsumption;
@@ -483,6 +505,7 @@
             const utilityRate = parseFloat(document.getElementById('utility-rate').value) || CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
             const exportRate = parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE;
             const batteryHours = parseInt(document.getElementById('battery-hours').value);
+            const usageTime = document.getElementById('usage-time').value;
 
             const netMeteringInitialTarget = getInitialSystemSize(monthlyBill);
             
@@ -494,13 +517,20 @@
             
             const gridTieInitialTarget = netMeteringInitialTarget * 0.85;
 
-            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, batteryHours);
-            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, batteryHours);
+            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime);
+            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime);
             
-            displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery);
+            let selfConsumptionRateForDisplay;
+            if (addBattery) {
+                selfConsumptionRateForDisplay = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
+            } else {
+                selfConsumptionRateForDisplay = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
+            }
+            
+            displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery, selfConsumptionRateForDisplay);
         }
 
-        function displayResults(data, addBattery) {
+        function displayResults(data, addBattery, selfConsumptionRate) {
             const formatCurrency = (num) => `₱${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             const formatYears = (num) => num === Infinity || num > 50 ? "Over 50 years" : `${num.toFixed(1)} years`;
             const createSpecItem = (text) => `<div class="spec-list-item">${ICONS.checkmark}<span>${text}</span></div>`;
@@ -514,6 +544,13 @@
                     <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} trees planted</span></div>
                 `;
             };
+
+            const consumptionText = selfConsumptionRate * 100;
+            const exportRateValue = (parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE).toFixed(2);
+
+            document.getElementById('grid-tie-disclaimer').textContent = `*Savings are based on an estimated ${consumptionText}% self-consumption of generated power, as excess power is not exported for credit in this setup.`;
+            document.getElementById('net-metering-disclaimer').textContent = `**Savings are based on an estimated ${consumptionText}% self-consumption and an export rate of ₱${exportRateValue}/kWh.`;
+
 
             document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Grid-Tie with Battery" : "Grid-Tie without Battery";
             document.querySelector('#net-metering-card h2').textContent = addBattery ? "Net-Metering with Battery" : "Net-Metering without Battery";
