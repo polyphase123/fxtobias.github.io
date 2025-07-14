@@ -240,11 +240,15 @@
             PEAK_SUN_HOURS: 4.5,
             DAYS_IN_MONTH: 30.44,
             AVAILABLE_INVERTER_SIZES: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 20, 25, 30, 40, 50, 60, 75, 100],
-            BATTERY_DOD: 1.0, // 100% Depth of Discharge
+            BATTERY_DOD: 0.80, // 80% Depth of Discharge
             BATTERY_EFFICIENCY: 0.90, // 90%
-            BATTERY_48V: { name: '48V 100AH', cost: 70000, energyWh: 4800 },
-            BATTERY_24V: { name: '24V 100AH', cost: 33700, energyWh: 2800 },
-             // Environmental factors per kWp per year (UPDATED)
+            BATTERY_OPTIONS: [
+                { id: 1, name: '51.2V 100AH', energyWh: 5000,  cost: 35000, warranty: 5 },
+                { id: 2, name: '51.2V 280AH', energyWh: 14000, cost: 80000, warranty: 5 },
+                { id: 3, name: '51.2V 314AH', energyWh: 16000, cost: 85000, warranty: 5 },
+                { id: 4, name: '51.2V 400AH', energyWh: 20000, cost: 118000, warranty: 8 },
+            ],
+             // Environmental factors per kWp per year
             CO2_AVOIDED_PER_KWP_KG: 460, 
             GASOLINE_LITERS_PER_KWP: 404,
             TREES_PLANTED_PER_KWP: 24,
@@ -338,6 +342,56 @@
             }
         }
 
+        function getBestBatteryCombination(requiredWh) {
+            if (requiredWh <= 0) return { cost: 0, specsString: "N/A" };
+
+            const batteries = CONFIG.BATTERY_OPTIONS;
+            const maxEnergy = Math.max(...batteries.map(b => b.energyWh));
+            const dpSize = Math.ceil(requiredWh) + maxEnergy;
+
+            const dp = Array(dpSize).fill(Infinity);
+            const path = Array(dpSize).fill(null);
+            dp[0] = 0;
+
+            for (let i = 1; i < dpSize; i++) {
+                for (const battery of batteries) {
+                    if (i >= battery.energyWh) {
+                        const cost = dp[i - battery.energyWh] + battery.cost;
+                        if (cost < dp[i]) {
+                            dp[i] = cost;
+                            path[i] = battery;
+                        }
+                    }
+                }
+            }
+
+            let minCost = Infinity;
+            let bestEnergy = -1;
+            for (let i = Math.ceil(requiredWh); i < dpSize; i++) {
+                if (dp[i] < minCost) {
+                    minCost = dp[i];
+                    bestEnergy = i;
+                }
+            }
+            
+            if (bestEnergy === -1) return { cost: 0, specsString: "Not enough data for calculation" };
+
+            const counts = {};
+            let currentEnergy = bestEnergy;
+            while (currentEnergy > 0 && path[currentEnergy]) {
+                const battery = path[currentEnergy];
+                counts[battery.id] = (counts[battery.id] || 0) + 1;
+                currentEnergy -= battery.energyWh;
+            }
+
+            const specsString = Object.entries(counts).map(([id, count]) => {
+                const battery = batteries.find(b => b.id == id);
+                return `${count} x ${battery.name} Battery (${battery.warranty}-Year Warranty)`;
+            }).join(', ');
+
+            return { cost: minCost, specsString };
+        }
+
         function selectInverterSize(requiredSize) {
             return CONFIG.AVAILABLE_INVERTER_SIZES.find(size => size >= requiredSize) || CONFIG.AVAILABLE_INVERTER_SIZES[CONFIG.AVAILABLE_INVERTER_SIZES.length - 1];
         }
@@ -345,9 +399,7 @@
         function getSystemSpecs(panelKwp, inverterKwp, isHybrid, batterySpecsString) {
             const numberOfPanels = Math.ceil((panelKwp * 1000) / CONFIG.PANEL_WATTAGE_W);
             let warranties = `Solar Panels - 15 years; Inverter - 5 years; Workmanship - 1 year`;
-            if (isHybrid) {
-                warranties += `; Battery - 5 years`;
-            }
+            // Battery warranty is now included in batterySpecsString, so we don't add it here.
             return {
                 inverter: `${inverterKwp}kW ${isHybrid ? 'Hybrid' : 'Grid-Tie'} Inverter`,
                 panelString: `${numberOfPanels} x ${CONFIG.PANEL_WATTAGE_W}W Solar Panels (${panelKwp.toFixed(2)} kWp)`,
@@ -391,14 +443,9 @@
             let batterySystem = { cost: 0, specsString: null };
             if (addBattery) {
                 const dailyKwh = (monthlyBill / utilityRate) / CONFIG.DAYS_IN_MONTH;
-                const overnightLoadWh = (dailyKwh / 24) * batteryHours * 1000; // Use selected hours
+                const overnightLoadWh = (dailyKwh / 24) * batteryHours * 1000;
                 const requiredCapacityWh = overnightLoadWh / (CONFIG.BATTERY_DOD * CONFIG.BATTERY_EFFICIENCY);
-                
-                const batteryType = (panelKwp >= 4) ? CONFIG.BATTERY_48V : CONFIG.BATTERY_24V;
-                const numberOfUnits = Math.max(1, Math.ceil(requiredCapacityWh / batteryType.energyWh));
-                
-                batterySystem.cost = numberOfUnits * batteryType.cost;
-                batterySystem.specsString = `${numberOfUnits} x ${batteryType.name} LiFePO4 Battery`;
+                batterySystem = getBestBatteryCombination(requiredCapacityWh);
             }
 
             const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
