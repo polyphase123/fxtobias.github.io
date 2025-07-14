@@ -18,7 +18,7 @@
             max-width: 900px;
         }
         /* Custom focus ring color */
-        .form-input:focus, .form-select:focus {
+        .form-input:focus, .form-select:focus, .rate-input:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3); /* green-500 with opacity */
             border-color: #22c55e; /* green-500 */
@@ -47,6 +47,24 @@
             font-size: 0.9rem; 
             color: #475569; /* slate-600 */
         }
+        .assumption-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .rate-input-wrapper {
+            position: relative;
+        }
+        .rate-input {
+            width: 100%;
+            padding-left: 1.75rem;
+            padding-right: 0.75rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border: 1px solid #cbd5e1; /* slate-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: all 0.2s;
+        }
     </style>
 </head>
 <body class="text-slate-800 flex items-center justify-center min-h-screen p-4 md:p-6">
@@ -61,36 +79,82 @@
 
         <!-- Calculator Input Section -->
         <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
-            <div class="flex flex-col sm:flex-row items-end gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 items-end gap-4">
                 <div class="w-full">
                     <label for="bill" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
                         <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        How much is your Electricity Bill?
+                        Monthly Bill
                     </label>
                     <div class="relative mt-1">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
                         <input type="number" id="bill" class="form-input w-full pl-8 pr-4 py-3 border border-slate-300 rounded-lg transition duration-200" placeholder="e.g., 12000">
                     </div>
                 </div>
-                <div class="w-full sm:w-auto">
+                <div class="w-full">
                      <label for="add-battery" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
                         <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         Add Batteries?
                     </label>
                      <div class="relative mt-1">
-                        <select id="add-battery" class="form-select-custom appearance-none w-full px-4 pr-10 py-3 border border-slate-300 rounded-lg transition duration-200">
+                        <select id="add-battery" class="form-select w-full px-4 py-3 border border-slate-300 rounded-lg transition duration-200">
                             <option value="no" selected>No</option>
                             <option value="yes">Yes</option>
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                        </div>
                     </div>
                 </div>
-                <div class="w-full sm:w-auto">
-                    <button onclick="calculateSavings()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-md hover:shadow-lg">
-                        Calculate
-                    </button>
+                 <div class="w-full">
+                    <label for="battery-hours" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Hours of Battery Use
+                    </label>
+                     <div class="relative mt-1">
+                        <select id="battery-hours" class="form-select w-full px-4 py-3 border border-slate-300 rounded-lg transition duration-200">
+                            <option value="8" selected>8 hours</option>
+                            <option value="7">7 hours</option>
+                            <option value="6">6 hours</option>
+                            <option value="5">5 hours</option>
+                            <option value="4">4 hours</option>
+                            <option value="3">3 hours</option>
+                            <option value="2">2 hours</option>
+                            <option value="1">1 hour</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-4">
+                 <button onclick="calculateSavings()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-md hover:shadow-lg">
+                    Calculate
+                </button>
+            </div>
+        </div>
+        
+        <!-- Assumptions Section -->
+        <div class="bg-slate-100 p-4 rounded-lg mb-8">
+            <h3 class="font-bold text-slate-700 text-center mb-3">Key Assumptions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 text-sm text-slate-600">
+                <div class="assumption-item">
+                    <label for="utility-rate" class="font-medium text-slate-700">Distribution Utility Rate (/kWh)</label>
+                    <div class="rate-input-wrapper">
+                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
+                        <input type="number" id="utility-rate" step="0.01" class="rate-input">
+                    </div>
+                </div>
+                 <div class="assumption-item">
+                    <label for="export-rate" class="font-medium text-slate-700">Net-Metering Export Rate (/kWh)</label>
+                     <div class="rate-input-wrapper">
+                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
+                        <input type="number" id="export-rate" step="0.01" class="rate-input">
+                    </div>
+                </div>
+                <div>
+                    <div class="font-medium text-slate-700 mb-1">
+                        <strong>Environmental Impact (Annual per kWp):</strong>
+                    </div>
+                    <ul class="list-disc list-inside pl-1 space-y-1">
+                        <li>Greenhouse Gas Saved: <strong>460 kg</strong></li>
+                        <li>Liters of Fuel Saved: <strong>404 liters</strong></li>
+                        <li>Equivalent Trees Planted: <strong>24</strong></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -172,42 +236,31 @@
             NET_METERING_EXPORT_RATE: 5.49,    // PHP/kWh
             SELF_CONSUMPTION_RATE: 0.60, // 60%
             SELF_CONSUMPTION_RATE_WITH_BATTERY: 0.90, // 90% with battery
-            BATTERY_COST_PER_AH: 160, // 16,000 pesos / 100Ah
             PANEL_WATTAGE_W: 550,
             PEAK_SUN_HOURS: 4.5,
             DAYS_IN_MONTH: 30.44,
             AVAILABLE_INVERTER_SIZES: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 20, 25, 30, 40, 50, 60, 75, 100],
-            BATTERY_NOMINAL_VOLTAGE: 12.8,
-            BATTERY_DOD: 0.80, // 80% Depth of Discharge
-             // Environmental factors per kWp per year
-            CO2_AVOIDED_PER_KWP_KG: 733, 
-            KM_DRIVEN_PER_KWP: 4500,
-            GASOLINE_LITERS_PER_KWP: 475,
-            TREES_PLANTED_PER_KWP: 50,
+            BATTERY_DOD: 1.0, // 100% Depth of Discharge
+            BATTERY_EFFICIENCY: 0.90, // 90%
+            BATTERY_48V: { name: '48V 100AH', cost: 70000, energyWh: 4800 },
+            BATTERY_24V: { name: '24V 100AH', cost: 33700, energyWh: 2800 },
+             // Environmental factors per kWp per year (UPDATED)
+            CO2_AVOIDED_PER_KWP_KG: 460, 
+            GASOLINE_LITERS_PER_KWP: 404,
+            TREES_PLANTED_PER_KWP: 24,
         };
 
-        // Data points from reference images for interpolation
+        // Data points for interpolation
         const GRID_TIE_COST_DATA = [
-            { kwp: 3, cost: 95000 },
-            { kwp: 5, cost: 145000 },
-            { kwp: 6, cost: 165000 },
-            { kwp: 8, cost: 235000 },
-            { kwp: 10, cost: 275000 },
-            { kwp: 12, cost: 295000 },
-            { kwp: 15, cost: 375000 },
-            { kwp: 18, cost: 455000 },
-            { kwp: 20, cost: 505000 },
+            { kwp: 3, cost: 95000 }, { kwp: 5, cost: 145000 }, { kwp: 6, cost: 165000 },
+            { kwp: 8, cost: 235000 }, { kwp: 10, cost: 275000 }, { kwp: 12, cost: 295000 },
+            { kwp: 15, cost: 375000 }, { kwp: 18, cost: 455000 }, { kwp: 20, cost: 505000 },
         ];
         
         const SIZING_DATA = [
-            { bill: 10000, kwp: 5.40 },
-            { bill: 12500, kwp: 6.54 },
-            { bill: 20000, kwp: 15.12 },
-            { bill: 40000, kwp: 22.79 },
-            { bill: 121000, kwp: 63.33 },
-            { bill: 150000, kwp: 78.50 },
-            { bill: 180000, kwp: 94.20 },
-            { bill: 191000, kwp: 99.96 }
+            { bill: 10000, kwp: 5.40 }, { bill: 12500, kwp: 6.54 }, { bill: 20000, kwp: 15.12 },
+            { bill: 40000, kwp: 22.79 }, { bill: 121000, kwp: 63.33 }, { bill: 150000, kwp: 78.50 },
+            { bill: 180000, kwp: 94.20 }, { bill: 191000, kwp: 99.96 }
         ];
 
         // --- Icon Templates ---
@@ -218,11 +271,15 @@
             investment: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
             payback: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
             co2: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>`,
-            car: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
             gas: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`,
             tree: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`,
             checkmark: `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`
         };
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('utility-rate').value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
+            document.getElementById('export-rate').value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
+        });
 
         function showAlert(message) {
             const modal = document.getElementById('alert-modal');
@@ -241,81 +298,55 @@
         
         function getInitialSystemSize(bill) {
             SIZING_DATA.sort((a, b) => a.bill - b.bill);
-
-            if (bill <= SIZING_DATA[0].bill) {
-                const ratio = SIZING_DATA[0].kwp / SIZING_DATA[0].bill;
-                return bill * ratio;
-            }
-
+            if (bill <= SIZING_DATA[0].bill) return bill * (SIZING_DATA[0].kwp / SIZING_DATA[0].bill);
             if (bill >= SIZING_DATA[SIZING_DATA.length - 1].bill) {
-                const lastPoint = SIZING_DATA[SIZING_DATA.length - 1];
-                const secondLastPoint = SIZING_DATA[SIZING_DATA.length - 2];
-                const slope = (lastPoint.kwp - secondLastPoint.kwp) / (lastPoint.bill - secondLastPoint.bill);
-                return lastPoint.kwp + (bill - lastPoint.bill) * slope;
+                const last = SIZING_DATA[SIZING_DATA.length - 1];
+                const secondLast = SIZING_DATA[SIZING_DATA.length - 2];
+                const slope = (last.kwp - secondLast.kwp) / (last.bill - secondLast.bill);
+                return last.kwp + (bill - last.bill) * slope;
             }
-
-            let lowerPoint, upperPoint;
             for (let i = 0; i < SIZING_DATA.length - 1; i++) {
                 if (bill >= SIZING_DATA[i].bill && bill < SIZING_DATA[i + 1].bill) {
-                    lowerPoint = SIZING_DATA[i];
-                    upperPoint = SIZING_DATA[i + 1];
-                    break;
+                    const lower = SIZING_DATA[i];
+                    const upper = SIZING_DATA[i + 1];
+                    const billRange = upper.bill - lower.bill;
+                    const kwpRange = upper.kwp - lower.kwp;
+                    const billFraction = (bill - lower.bill) / billRange;
+                    return lower.kwp + (billFraction * kwpRange);
                 }
             }
-
-            const billRange = upperPoint.bill - lowerPoint.bill;
-            const kwpRange = upperPoint.kwp - lowerPoint.kwp;
-            const billFraction = (bill - lowerPoint.bill) / billRange;
-
-            return lowerPoint.kwp + (billFraction * kwpRange);
         }
 
         function getSystemCost(kwp, costData) {
             costData.sort((a, b) => a.kwp - b.kwp);
-             if (kwp <= costData[0].kwp) {
-                const costPerKwp = costData[0].cost / costData[0].kwp;
-                return kwp * costPerKwp;
-            }
-
+            if (kwp <= costData[0].kwp) return kwp * (costData[0].cost / costData[0].kwp);
             if (kwp >= costData[costData.length - 1].kwp) {
-                const lastPoint = costData[costData.length - 1];
-                 const secondLastPoint = costData[costData.length - 2];
-                const slope = (lastPoint.cost - secondLastPoint.cost) / (lastPoint.kwp - secondLastPoint.kwp);
-                return lastPoint.cost + (kwp - lastPoint.kwp) * slope;
+                const last = costData[costData.length - 1];
+                const secondLast = costData[costData.length - 2];
+                const slope = (last.cost - secondLast.cost) / (last.kwp - secondLast.kwp);
+                return last.cost + (kwp - last.kwp) * slope;
             }
-
-            let lowerPoint, upperPoint;
             for (let i = 0; i < costData.length - 1; i++) {
                 if (kwp >= costData[i].kwp && kwp < costData[i+1].kwp) {
-                    lowerPoint = costData[i];
-                    upperPoint = costData[i+1];
-                    break;
+                    const lower = costData[i];
+                    const upper = costData[i+1];
+                    const kwpRange = upper.kwp - lower.kwp;
+                    const costRange = upper.cost - lower.cost;
+                    const kwpFraction = (kwp - lower.kwp) / kwpRange;
+                    return lower.cost + (kwpFraction * costRange);
                 }
             }
-            
-            const kwpRange = upperPoint.kwp - lowerPoint.kwp;
-            const costRange = upperPoint.cost - lowerPoint.cost;
-            const kwpFraction = (kwp - lowerPoint.kwp) / kwpRange;
-
-            return lowerPoint.cost + (kwpFraction * costRange);
         }
-
 
         function selectInverterSize(requiredSize) {
             return CONFIG.AVAILABLE_INVERTER_SIZES.find(size => size >= requiredSize) || CONFIG.AVAILABLE_INVERTER_SIZES[CONFIG.AVAILABLE_INVERTER_SIZES.length - 1];
         }
         
-        function getSystemSpecs(panelKwp, inverterKwp, isHybrid, monthlyBill) {
+        function getSystemSpecs(panelKwp, inverterKwp, isHybrid, batterySpecsString) {
             const numberOfPanels = Math.ceil((panelKwp * 1000) / CONFIG.PANEL_WATTAGE_W);
             let warranties = `Solar Panels - 15 years; Inverter - 5 years; Workmanship - 1 year`;
-            let batteryString = null;
             if (isHybrid) {
                 warranties += `; Battery - 5 years`;
-                // NEW CALCULATION based on user formula: recommended system size in kWp / 230V * 8 hours
-                const requiredAh = (((panelKwp * 1000) / 230) * 8) / CONFIG.BATTERY_DOD;
-                
-                const numberOfBatteries = Math.max(1, Math.ceil(requiredAh / 100));
-                batteryString = `${numberOfBatteries} x 100Ah LiFePO4 Battery (Total: ${numberOfBatteries * 100}Ah)`;
             }
             return {
                 inverter: `${inverterKwp}kW ${isHybrid ? 'Hybrid' : 'Grid-Tie'} Inverter`,
@@ -324,69 +355,72 @@
                 inverterBrands: `Thinkpower, DEYE, SMA`,
                 warranties: warranties,
                 inclusions: `All-In Installation, Online Monitoring`,
-                battery: batteryString
+                battery: isHybrid ? batterySpecsString : null
             };
         }
         
         function calculateEnvironmentalImpact(panelKwp) {
             return {
                 co2: panelKwp * CONFIG.CO2_AVOIDED_PER_KWP_KG,
-                kmDriven: panelKwp * CONFIG.KM_DRIVEN_PER_KWP,
                 gasLiters: panelKwp * CONFIG.GASOLINE_LITERS_PER_KWP,
                 trees: panelKwp * CONFIG.TREES_PLANTED_PER_KWP,
             };
         }
 
-        function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, addBattery) {
+        function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batteryCost) {
             let investmentCost = getSystemCost(panelKwp, GRID_TIE_COST_DATA);
-            if(isNetMeteringPlan) {
-                investmentCost *= 1.1;
+            if (isNetMeteringPlan) {
+                const netMeteringFee = Math.max(30000, investmentCost * 0.1);
+                investmentCost += netMeteringFee;
             }
-            if (addBattery) {
-                // NEW CALCULATION based on user formula: recommended system size in kWp / 230V * 8 hours
-                const requiredAh = (((panelKwp * 1000) / 230) * 8) / CONFIG.BATTERY_DOD;
-
-                // Correctly calculate total Ah rounded up to the nearest 100 for costing.
-                const totalRequiredAh = Math.max(100, Math.ceil(requiredAh / 100) * 100);
-                investmentCost += totalRequiredAh * CONFIG.BATTERY_COST_PER_AH;
-            }
-
+            investmentCost += batteryCost;
             const annualSavingsForPayback = averageMonthlySavings * 12;
             const paybackPeriod = (annualSavingsForPayback > 0) ? (investmentCost / annualSavingsForPayback) : Infinity;
-
             return { investment: investmentCost, payback: paybackPeriod };
         }
 
-        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery) {
+        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours) {
             const isNetMeteringPlan = type === 'net_metering';
             
             const inverterSize = selectInverterSize(initialTargetKwp);
             const panelOversizeFactor = addBattery ? 1.2 : 1.1;
             const numberOfPanels = Math.ceil((inverterSize * panelOversizeFactor * 1000) / CONFIG.PANEL_WATTAGE_W);
             const panelKwp = (numberOfPanels * CONFIG.PANEL_WATTAGE_W) / 1000;
-            const rooftopArea = panelKwp * 2.58;
+            const rooftopArea = (panelKwp * 2.58) * 1.1;
 
-            const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, monthlyBill);
+            let batterySystem = { cost: 0, specsString: null };
+            if (addBattery) {
+                const dailyKwh = (monthlyBill / utilityRate) / CONFIG.DAYS_IN_MONTH;
+                const overnightLoadWh = (dailyKwh / 24) * batteryHours * 1000; // Use selected hours
+                const requiredCapacityWh = overnightLoadWh / (CONFIG.BATTERY_DOD * CONFIG.BATTERY_EFFICIENCY);
+                
+                const batteryType = (panelKwp >= 4) ? CONFIG.BATTERY_48V : CONFIG.BATTERY_24V;
+                const numberOfUnits = Math.max(1, Math.ceil(requiredCapacityWh / batteryType.energyWh));
+                
+                batterySystem.cost = numberOfUnits * batteryType.cost;
+                batterySystem.specsString = `${numberOfUnits} x ${batteryType.name} LiFePO4 Battery`;
+            }
+
+            const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
             
             const monthlyKwhGenerated = panelKwp * CONFIG.PEAK_SUN_HOURS * CONFIG.DAYS_IN_MONTH;
-            
             let averageMonthlySavings;
             const currentSelfConsumption = addBattery ? CONFIG.SELF_CONSUMPTION_RATE_WITH_BATTERY : CONFIG.SELF_CONSUMPTION_RATE;
 
             if (isNetMeteringPlan) {
                 const selfConsumedKwh = monthlyKwhGenerated * currentSelfConsumption;
                 const exportedKwh = monthlyKwhGenerated * (1 - currentSelfConsumption);
-                const savingsFromSelfConsumption = selfConsumedKwh * CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
-                const savingsFromExport = exportedKwh * CONFIG.NET_METERING_EXPORT_RATE;
+                const savingsFromSelfConsumption = selfConsumedKwh * utilityRate;
+                const savingsFromExport = exportedKwh * exportRate;
                 averageMonthlySavings = savingsFromSelfConsumption + savingsFromExport;
             } else {
                  const selfConsumedKwh = monthlyKwhGenerated * currentSelfConsumption;
-                 averageMonthlySavings = selfConsumedKwh * CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
+                 averageMonthlySavings = selfConsumedKwh * utilityRate;
             }
             
             averageMonthlySavings = Math.min(averageMonthlySavings, monthlyBill);
             
-            const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, addBattery);
+            const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batterySystem.cost);
             const environmental = calculateEnvironmentalImpact(panelKwp);
             
             return { size: panelKwp, rooftopArea, averageSavings: averageMonthlySavings, specs, ...financials, environmental };
@@ -399,46 +433,41 @@
                 return;
             }
             const addBattery = document.getElementById('add-battery').value === 'yes';
+            const utilityRate = parseFloat(document.getElementById('utility-rate').value) || CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
+            const exportRate = parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE;
+            const batteryHours = parseInt(document.getElementById('battery-hours').value);
 
             const netMeteringInitialTarget = getInitialSystemSize(monthlyBill);
             
             if (netMeteringInitialTarget > 100) {
-                showAlert("The net-metering program in the Philippines, governed by the Renewable Energy Act of 2008, has a limit of 100kWp (kilowatt peak) for renewable energy (RE) installations connected to the grid. Write to your congressman to amend the law.");
+                showAlert("The net-metering program in the Philippines has a limit of 100kWp. Please contact us for solutions above this size.");
                 document.getElementById('results').classList.add('hidden');
                 return;
             }
             
             const gridTieInitialTarget = netMeteringInitialTarget * 0.85;
 
-            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery);
-            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery);
+            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, batteryHours);
+            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, batteryHours);
             
             displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery);
         }
 
         function displayResults(data, addBattery) {
-            const formatCurrency = (num) => {
-                if (typeof num !== 'number' || isNaN(num)) return '₱-';
-                return `₱${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-            };
+            const formatCurrency = (num) => `₱${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             const formatYears = (num) => num === Infinity || num > 50 ? "Over 50 years" : `${num.toFixed(1)} years`;
             const createSpecItem = (text) => `<div class="spec-list-item">${ICONS.checkmark}<span>${text}</span></div>`;
-
-            const renderOutput = (id, icon, value) => {
-                document.getElementById(id).innerHTML = `${icon}<span class="output-value">${value}</span>`;
-            };
+            const renderOutput = (id, icon, value) => { document.getElementById(id).innerHTML = `${icon}<span class="output-value">${value}</span>`; };
             
             const renderEnvImpact = (containerId, envData) => {
                 const container = document.getElementById(containerId);
                 container.innerHTML = `
-                    <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg CO₂ avoided</span></div>
-                    <div class="output-group">${ICONS.car} <span class="output-value">${Math.round(envData.kmDriven).toLocaleString()} km driven equivalent</span></div>
-                    <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of gasoline</span></div>
+                    <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg Greenhouse Gas Saved</span></div>
+                    <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of fuel saved</span></div>
                     <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} trees planted</span></div>
                 `;
             };
 
-            // Update Titles
             document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Grid-Tie with Battery" : "Grid-Tie without Battery";
             document.querySelector('#net-metering-card h2').textContent = addBattery ? "Net-Metering with Battery" : "Net-Metering without Battery";
 
