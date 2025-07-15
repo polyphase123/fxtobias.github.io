@@ -159,7 +159,7 @@
                      <ul class="space-y-1">
                         <li><span class="font-semibold text-slate-700">460 kg</span> CO₂ Saved</li>
                         <li><span class="font-semibold text-slate-700">404 L</span> Fuel Saved</li>
-                        <li><span class="font-semibold text-slate-700">24</span> Trees Planted</li>
+                        <li><span class="font-semibold text-slate-700">24</span> Equivalent Trees Planted</li>
                      </ul>
                 </div>
             </div>
@@ -463,7 +463,7 @@
                 batterySystem = getBestBatteryCombination(requiredCapacityWh);
             }
 
-            const specs = getSystemSpecs(panelKwp, inverterKwp, addBattery, batterySystem.specsString);
+            const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
             
             const monthlyKwhGenerated = panelKwp * CONFIG.PEAK_SUN_HOURS * CONFIG.DAYS_IN_MONTH;
             let averageMonthlySavings;
@@ -541,7 +541,7 @@
                 container.innerHTML = `
                     <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg Greenhouse Gas Saved</span></div>
                     <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of fuel saved</span></div>
-                    <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} trees planted</span></div>
+                    <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} Equivalent Trees Planted</span></div>
                 `;
             };
 
