@@ -69,9 +69,9 @@
         }
     </style>
 </head>
-<body class="text-slate-800 flex items-center justify-center min-h-screen p-4 md:p-6">
+<body class="text-slate-800 flex items-start md:items-center justify-center min-h-screen p-4 md:p-6">
 
-    <div class="main-container w-full mx-auto">
+    <div class="main-container w-full mx-auto pb-12">
         <!-- Header Section -->
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">SOLAR SAVINGS CALCULATOR</h1>
@@ -138,7 +138,7 @@
                     <label for="utility-rate" class="font-medium text-slate-700">Utility Rate (/kWh)</label>
                     <div class="rate-input-wrapper">
                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
-                        <input type="number" id="utility-rate" step="0.01" class="rate-input bg-white">
+                        <input type="number" id="utility-rate" step="0.01" min="7" max="16" class="rate-input bg-white">
                     </div>
                 </div>
                  <div class="assumption-item">
@@ -149,21 +149,70 @@
                     </div>
                 </div>
                 <div class="assumption-item">
+                    <label for="peak-sun-hours" class="font-medium text-slate-700">Peak Sun Hours</label>
+                    <input type="number" id="peak-sun-hours" step="0.1" min="3" max="5" class="form-input w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
+                </div>
+                <div class="assumption-item">
                     <label for="usage-time" class="font-medium text-slate-700">Primary Usage Time</label>
                     <select id="usage-time" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
                         <option value="nighttime" selected>Mostly Nighttime</option>
                         <option value="daytime">Mostly Daytime</option>
                     </select>
                 </div>
-                <div class="assumption-item">
-                     <div class="font-medium text-slate-700">Environmental Impact</div>
-                     <div class="text-xs text-slate-500 -mt-1 mb-1">(Annual per kWp)</div>
-                     <ul class="space-y-1">
-                        <li><span class="font-semibold text-slate-700">460 kg</span> CO₂ Saved</li>
-                        <li><span class="font-semibold text-slate-700">404 L</span> Fuel Saved</li>
-                        <li><span class="font-semibold text-slate-700">24</span> Equivalent Trees Planted</li>
-                     </ul>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600 mt-4 pt-4 border-t border-slate-200">
+                 <div class="assumption-item">
+                    <label for="financing" class="font-medium text-slate-700">Financing</label>
+                    <select id="financing" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                    </select>
                 </div>
+                 <div id="financing-details" class="hidden md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="assumption-item">
+                        <label for="interest-rate" class="font-medium text-slate-700">Interest Rate (%)</label>
+                        <select id="interest-rate" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
+                        </select>
+                    </div>
+                    <div class="assumption-item">
+                        <label for="loan-term" class="font-medium text-slate-700">Loan Term (Years)</label>
+                        <select id="loan-term" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
+                            <option value="1">1 Year</option>
+                            <option value="2">2 Years</option>
+                            <option value="3">3 Years</option>
+                            <option value="4">4 Years</option>
+                            <option value="5" selected>5 Years</option>
+                            <option value="6">6 Years</option>
+                            <option value="7">7 Years</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-4 pt-4 border-t border-slate-200">
+                <div class="font-medium text-slate-700 mb-2 text-center md:text-left">Environmental Impact (Annual per kWp):</div>
+                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>
+                        <div>
+                            <span class="font-bold text-slate-800">460 kg</span>
+                            <span class="text-xs block">CO2 Emissions Reduced</span>
+                        </div>
+                    </div>
+                     <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <div>
+                            <span class="font-bold text-slate-800">404 L</span>
+                            <span class="text-xs block">Gasoline Saved</span>
+                        </div>
+                    </div>
+                     <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <span class="font-bold text-slate-800">24</span>
+                            <span class="text-xs block">Equivalent Trees Planted</span>
+                        </div>
+                    </div>
+                 </div>
             </div>
         </div>
 
@@ -187,9 +236,11 @@
 
                     <hr class="my-6 border-slate-200">
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment Analysis</h3>
-                    <div class="space-y-4">
+                    <div id="bawas-investment-analysis" class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="bawas-investment" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="bawas-payback" class="output-group"></div></div>
+                        <div id="bawas-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="bawas-payback" class="output-group"></div></div>
+                        <div id="bawas-amortization-container" class="hidden"><label id="bawas-amortization-label" class="text-sm font-medium text-slate-500">Monthly Amortization</label><div id="bawas-amortization" class="output-group"></div></div>
+                        <div id="bawas-interest-container" class="hidden"><label class="text-sm font-medium text-slate-500">Total Interest Paid</label><div id="bawas-interest" class="output-group"></div></div>
                     </div>
                     
                     <hr class="my-6 border-slate-200">
@@ -214,9 +265,11 @@
 
                     <hr class="my-6 border-slate-200">
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment Analysis</h3>
-                     <div class="space-y-4">
+                     <div id="zero-investment-analysis" class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="zero-investment" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="zero-payback" class="output-group"></div></div>
+                        <div id="zero-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="zero-payback" class="output-group"></div></div>
+                        <div id="zero-amortization-container" class="hidden"><label id="zero-amortization-label" class="text-sm font-medium text-slate-500">Monthly Amortization</label><div id="zero-amortization" class="output-group"></div></div>
+                        <div id="zero-interest-container" class="hidden"><label class="text-sm font-medium text-slate-500">Total Interest Paid</label><div id="zero-interest" class="output-group"></div></div>
                     </div>
                     
                     <hr class="my-6 border-slate-200">
@@ -311,9 +364,32 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('utility-rate').value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
             document.getElementById('export-rate').value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
+            document.getElementById('peak-sun-hours').value = CONFIG.PEAK_SUN_HOURS;
             
             const supportButton = document.getElementById('support-button');
             supportButton.addEventListener('click', openDonationModal);
+
+            const financingSelect = document.getElementById('financing');
+            financingSelect.addEventListener('change', (e) => {
+                const financingDetails = document.getElementById('financing-details');
+                if (e.target.value === 'yes') {
+                    financingDetails.classList.remove('hidden');
+                } else {
+                    financingDetails.classList.add('hidden');
+                }
+            });
+            
+            const interestRateSelect = document.getElementById('interest-rate');
+            for (let i = 50; i <= 80; i++) {
+                const value = (i / 10).toFixed(1);
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = `${value}%`;
+                if (value === '6.8') {
+                    option.selected = true;
+                }
+                interestRateSelect.appendChild(option);
+            }
         });
 
         function showAlert(message) {
@@ -476,19 +552,48 @@
             };
         }
 
-        function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batteryCost) {
+        function calculateLoan(principal, annualRate, years) {
+            const monthlyRate = (annualRate / 100) / 12;
+            const numberOfPayments = years * 12;
+            if (monthlyRate === 0) {
+                return {
+                    monthlyPayment: principal / numberOfPayments,
+                    totalInterest: 0,
+                    totalPaid: principal
+                };
+            }
+            const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+            const totalPaid = monthlyPayment * numberOfPayments;
+            const totalInterest = totalPaid - principal;
+            return { monthlyPayment, totalInterest, totalPaid };
+        }
+
+        function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batteryCost, financing) {
             let investmentCost = getSystemCost(panelKwp, GRID_TIE_COST_DATA);
             if (isNetMeteringPlan) {
                 const netMeteringFee = Math.max(30000, investmentCost * 0.1);
                 investmentCost += netMeteringFee;
             }
             investmentCost += batteryCost;
-            const annualSavingsForPayback = averageMonthlySavings * 12;
-            const paybackPeriod = (annualSavingsForPayback > 0) ? (investmentCost / annualSavingsForPayback) : Infinity;
-            return { investment: investmentCost, payback: paybackPeriod };
+            
+            const result = { investment: investmentCost };
+
+            if (financing.enabled) {
+                const loanDetails = calculateLoan(investmentCost, financing.interestRate, financing.loanTerm);
+                result.monthlyPayment = loanDetails.monthlyPayment;
+                result.totalInterest = loanDetails.totalInterest;
+                result.payback = null; // Payback is not directly comparable when financing
+            } else {
+                const annualSavingsForPayback = averageMonthlySavings * 12;
+                result.payback = (annualSavingsForPayback > 0) ? (investmentCost / annualSavingsForPayback) : Infinity;
+                result.monthlyPayment = null;
+                result.totalInterest = null;
+            }
+            
+            return result;
         }
 
-        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime) {
+        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime, financing, peakSunHours) {
             const isNetMeteringPlan = type === 'net_metering';
             
             const inverterSize = selectInverterSize(initialTargetKwp);
@@ -507,7 +612,7 @@
 
             const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
             
-            const monthlyKwhGenerated = panelKwp * CONFIG.PEAK_SUN_HOURS * CONFIG.DAYS_IN_MONTH;
+            const monthlyKwhGenerated = panelKwp * peakSunHours * CONFIG.DAYS_IN_MONTH;
             let averageMonthlySavings;
             
             let currentSelfConsumption;
@@ -531,7 +636,7 @@
             
             averageMonthlySavings = Math.min(averageMonthlySavings, monthlyBill);
             
-            const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batterySystem.cost);
+            const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batterySystem.cost, financing);
             const environmental = calculateEnvironmentalImpact(panelKwp);
             
             return { size: panelKwp, rooftopArea, averageSavings: averageMonthlySavings, specs, ...financials, environmental };
@@ -544,10 +649,43 @@
                 return;
             }
             const addBattery = document.getElementById('add-battery').value === 'yes';
-            const utilityRate = parseFloat(document.getElementById('utility-rate').value) || CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
-            const exportRate = parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE;
-            const batteryHours = parseInt(document.getElementById('battery-hours').value);
-            const usageTime = document.getElementById('usage-time').value;
+            const utilityRateInput = document.getElementById('utility-rate');
+            const exportRateInput = document.getElementById('export-rate');
+            const peakSunHoursInput = document.getElementById('peak-sun-hours');
+
+            let utilityRate = parseFloat(utilityRateInput.value) || CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
+            let exportRate = parseFloat(exportRateInput.value) || CONFIG.NET_METERING_EXPORT_RATE;
+            let peakSunHours = parseFloat(peakSunHoursInput.value) || CONFIG.PEAK_SUN_HOURS;
+
+            if (peakSunHours < 3 || peakSunHours > 5) {
+                showAlert("Peak sun hours must be between 3 and 5. Using default value of 4.5.");
+                peakSunHoursInput.value = CONFIG.PEAK_SUN_HOURS;
+                return;
+            }
+            
+            if (utilityRate < 7 || utilityRate > 16) {
+                showAlert("Utility rate must be between ₱7.00 and ₱16.00.");
+                utilityRateInput.value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
+                return;
+            }
+
+            const maxExportRate = Math.min(8, utilityRate * 0.7);
+            if (exportRate > maxExportRate) {
+                showAlert(`Export rate cannot exceed ₱${maxExportRate.toFixed(2)}.`);
+                exportRateInput.value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
+                return;
+            }
+
+            const financing = {
+                enabled: document.getElementById('financing').value === 'yes',
+                interestRate: parseFloat(document.getElementById('interest-rate').value),
+                loanTerm: parseInt(document.getElementById('loan-term').value)
+            };
+            
+            if (financing.enabled && financing.interestRate > 8) {
+                showAlert("An interest rate above 8% is quite high. Be cautious and review the terms from the financial institution. For comparison, Security Bank offers rates as low as 5.8% for a 5-year term.");
+                return;
+            }
 
             const netMeteringInitialTarget = getInitialSystemSize(monthlyBill);
             
@@ -559,20 +697,21 @@
             
             const gridTieInitialTarget = netMeteringInitialTarget * 0.85;
 
-            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime);
-            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime);
+            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, parseInt(document.getElementById('battery-hours').value), document.getElementById('usage-time').value, financing, peakSunHours);
+            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, parseInt(document.getElementById('battery-hours').value), document.getElementById('usage-time').value, financing, peakSunHours);
             
             let selfConsumptionRateForDisplay;
             if (addBattery) {
-                selfConsumptionRateForDisplay = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
+                selfConsumptionRateForDisplay = document.getElementById('usage-time').value === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
             } else {
-                selfConsumptionRateForDisplay = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
+                selfConsumptionRateForDisplay = document.getElementById('usage-time').value === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
             }
             
-            displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery, selfConsumptionRateForDisplay);
+            displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery, selfConsumptionRateForDisplay, financing);
         }
 
-        function displayResults(data, addBattery, selfConsumptionRate) {
+        function displayResults(data, addBattery, selfConsumptionRate, financing) {
+            const isFinanced = financing.enabled;
             const formatCurrency = (num) => `₱${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             const formatYears = (num) => num === Infinity || num > 50 ? "Over 50 years" : `${num.toFixed(1)} years`;
             const createSpecItem = (text) => `<div class="spec-list-item">${ICONS.checkmark}<span>${text}</span></div>`;
@@ -581,8 +720,8 @@
             const renderEnvImpact = (containerId, envData) => {
                 const container = document.getElementById(containerId);
                 container.innerHTML = `
-                    <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg Greenhouse Gas Saved</span></div>
-                    <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of fuel saved</span></div>
+                    <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg CO2 Emissions Reduced</span></div>
+                    <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of Gasoline Saved</span></div>
                     <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} Equivalent Trees Planted</span></div>
                 `;
             };
@@ -597,12 +736,27 @@
             document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Grid-Tie with Battery" : "Grid-Tie without Battery";
             document.querySelector('#net-metering-card h2').textContent = addBattery ? "Net-Metering with Battery" : "Net-Metering without Battery";
 
-            // Grid-Tie Plan
+            // --- RENDER GRID-TIE PLAN ---
             renderOutput('bawas-system-size', ICONS.system, `${data.gridTie.size.toFixed(2)} kWp`);
             renderOutput('bawas-savings', ICONS.savings, formatCurrency(data.gridTie.averageSavings));
             renderOutput('bawas-rooftop-area', ICONS.rooftop, `${data.gridTie.rooftopArea.toFixed(2)} sq. m.`);
             renderOutput('bawas-investment', ICONS.investment, formatCurrency(data.gridTie.investment));
-            renderOutput('bawas-payback', ICONS.payback, formatYears(data.gridTie.payback));
+            
+            if (isFinanced) {
+                document.getElementById('bawas-payback-container').classList.add('hidden');
+                document.getElementById('bawas-amortization-container').classList.remove('hidden');
+                document.getElementById('bawas-interest-container').classList.remove('hidden');
+                const loanTerm = financing.loanTerm;
+                document.getElementById('bawas-amortization-label').textContent = `Monthly Amortization for ${loanTerm} ${loanTerm > 1 ? 'Years' : 'Year'}`;
+                renderOutput('bawas-amortization', ICONS.investment, formatCurrency(data.gridTie.monthlyPayment));
+                renderOutput('bawas-interest', ICONS.savings, formatCurrency(data.gridTie.totalInterest));
+            } else {
+                document.getElementById('bawas-payback-container').classList.remove('hidden');
+                document.getElementById('bawas-amortization-container').classList.add('hidden');
+                document.getElementById('bawas-interest-container').classList.add('hidden');
+                renderOutput('bawas-payback', ICONS.payback, formatYears(data.gridTie.payback));
+            }
+
             let gridTieSpecsHtml = [
                 createSpecItem(data.gridTie.specs.inverter),
                 createSpecItem(data.gridTie.specs.panelString),
@@ -615,12 +769,27 @@
             document.getElementById('bawas-specs').innerHTML = gridTieSpecsHtml;
             renderEnvImpact('bawas-env', data.gridTie.environmental);
 
-            // Net-Metering Plan
+            // --- RENDER NET-METERING PLAN ---
             renderOutput('zero-system-size', ICONS.system, `${data.netMetering.size.toFixed(2)} kWp`);
             renderOutput('zero-savings', ICONS.savings, formatCurrency(data.netMetering.averageSavings));
             renderOutput('zero-rooftop-area', ICONS.rooftop, `${data.netMetering.rooftopArea.toFixed(2)} sq. m.`);
             renderOutput('zero-investment', ICONS.investment, formatCurrency(data.netMetering.investment));
-            renderOutput('zero-payback', ICONS.payback, formatYears(data.netMetering.payback));
+            
+            if (isFinanced) {
+                document.getElementById('zero-payback-container').classList.add('hidden');
+                document.getElementById('zero-amortization-container').classList.remove('hidden');
+                document.getElementById('zero-interest-container').classList.remove('hidden');
+                 const loanTerm = financing.loanTerm;
+                document.getElementById('zero-amortization-label').textContent = `Monthly Amortization for ${loanTerm} ${loanTerm > 1 ? 'Years' : 'Year'}`;
+                renderOutput('zero-amortization', ICONS.investment, formatCurrency(data.netMetering.monthlyPayment));
+                renderOutput('zero-interest', ICONS.savings, formatCurrency(data.netMetering.totalInterest));
+            } else {
+                document.getElementById('zero-payback-container').classList.remove('hidden');
+                document.getElementById('zero-amortization-container').classList.add('hidden');
+                document.getElementById('zero-interest-container').classList.add('hidden');
+                renderOutput('zero-payback', ICONS.payback, formatYears(data.netMetering.payback));
+            }
+
             let netMeteringSpecsHtml = [
                 createSpecItem(data.netMetering.specs.inverter),
                 createSpecItem(data.netMetering.specs.panelString),
