@@ -131,7 +131,7 @@
         <!-- Assumptions Section -->
         <div class="bg-slate-100 p-6 rounded-lg mb-8">
             <h3 class="font-bold text-slate-700 text-center mb-4">Key Assumptions</h3>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-sm text-slate-600">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-slate-600">
                 <div class="assumption-item">
                     <label for="utility-rate" class="font-medium text-slate-700">Utility Rate (/kWh)</label>
                     <div class="rate-input-wrapper">
@@ -153,31 +153,14 @@
                         <option value="daytime">Mostly Daytime</option>
                     </select>
                 </div>
-                <div class="lg:col-span-3">
-                     <div class="font-medium text-slate-700 mb-2">Environmental Impact (Annual per kWp):</div>
-                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>
-                            <div>
-                                <span class="font-bold text-slate-800">460 kg</span>
-                                <span class="text-xs block">CO₂ Saved</span>
-                            </div>
-                        </div>
-                         <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                            <div>
-                                <span class="font-bold text-slate-800">404 L</span>
-                                <span class="text-xs block">Fuel Saved</span>
-                            </div>
-                        </div>
-                         <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div>
-                                <span class="font-bold text-slate-800">24</span>
-                                <span class="text-xs block">Trees Planted</span>
-                            </div>
-                        </div>
-                     </div>
+                <div class="assumption-item">
+                     <div class="font-medium text-slate-700">Environmental Impact</div>
+                     <div class="text-xs text-slate-500 -mt-1 mb-1">(Annual per kWp)</div>
+                     <ul class="space-y-1">
+                        <li><span class="font-semibold text-slate-700">460 kg</span> CO₂ Saved</li>
+                        <li><span class="font-semibold text-slate-700">404 L</span> Fuel Saved</li>
+                        <li><span class="font-semibold text-slate-700">24</span> Trees Planted</li>
+                     </ul>
                 </div>
             </div>
         </div>
