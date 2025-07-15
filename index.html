@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar Savings Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -226,11 +227,22 @@
             </div>
         </div>
         
-        <!-- Modal for alerts -->
-        <div id="alert-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
-            <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
-                <p id="alert-message" class="mb-4 text-slate-700"></p>
-                <button onclick="closeModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition">OK</button>
+        <footer class="text-center mt-8">
+            <button id="support-button" class="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-200 shadow-md hover:shadow-lg flex items-center gap-2 mx-auto">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h1a1 1 0 011 1v3.5a1.5 1.5 0 01-3 0V7a1 1 0 00-1-1H9.5a1.5 1.5 0 010-3H10v.5z"></path><path d="M4 6a2 2 0 012-2h2.5a1.5 1.5 0 010 3H6a2 2 0 01-2-2zm2.5 4a1.5 1.5 0 000 3H10v1.5a1.5 1.5 0 003 0V14a1 1 0 00-1-1h-1a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5z"></path></svg>
+                Support Us
+            </button>
+        </footer>
+
+        <!-- Donation Modal -->
+        <div id="donation-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-white rounded-lg shadow-xl p-8 max-w-xs w-full text-center relative">
+                 <button onclick="closeDonationModal()" class="absolute top-2 right-2 text-slate-400 hover:text-slate-600">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                <h3 class="text-xl font-bold text-slate-800 mb-4">Please donate to support!</h3>
+                <img src="https://www.dropbox.com/scl/fi/khiyhojktogq5b4lu9rxw/Screenshot_20250713_223151_GCash.jpg?rlkey=sy4spjyzcbkasdwjnnuh7tggj&raw=1" alt="GCash QR Code" class="mx-auto rounded-md shadow-sm w-full max-w-[200px]">
+                <p class="mt-4 font-semibold text-slate-700 text-lg">0936 923 8834</p>
             </div>
         </div>
 
@@ -298,6 +310,9 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('utility-rate').value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
             document.getElementById('export-rate').value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
+            
+            const supportButton = document.getElementById('support-button');
+            supportButton.addEventListener('click', openDonationModal);
         });
 
         function showAlert(message) {
@@ -315,6 +330,32 @@
             }
         }
         
+        // --- Donation Modal and Sound ---
+        const coinSynth = new Tone.Synth({
+            oscillator: { type: 'triangle' },
+            envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }
+        }).toDestination();
+
+        function playCoinSound() {
+            if (Tone.context.state !== 'running') {
+                Tone.start();
+            }
+            coinSynth.triggerAttackRelease("B5", "16n", Tone.now());
+            coinSynth.triggerAttackRelease("E6", "16n", Tone.now() + 0.1);
+        }
+
+        function openDonationModal() {
+            playCoinSound();
+            const modal = document.getElementById('donation-modal');
+            modal.classList.remove('hidden');
+        }
+        
+        function closeDonationModal() {
+            const modal = document.getElementById('donation-modal');
+            modal.classList.add('hidden');
+        }
+
+
         function getInitialSystemSize(bill) {
             SIZING_DATA.sort((a, b) => a.bill - b.bill);
             if (bill <= SIZING_DATA[0].bill) return bill * (SIZING_DATA[0].kwp / SIZING_DATA[0].bill);
