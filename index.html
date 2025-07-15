@@ -3,8 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Savings Calculator</title>
+    <title>Philippines Solar Savings Calculator | Meralco Bill & Investment</title>
+    <meta name="description" content="Estimate your solar panel price in the Philippines with our free savings calculator. See how much you can save on your Meralco bill, compute your payback period, and explore financing options.">
     <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23FF0000" stroke="black" stroke-width="4"/><circle cx="50" cy="50" r="15" fill="black"/><circle cx="50" cy="25" r="8" fill="black"/><circle cx="71.6" cy="62.5" r="8" fill="black"/><circle cx="28.4" cy="62.5" r="8" fill="black"/></svg>'>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "name": "Philippines Solar Savings Calculator",
+          "url": "https://polyphase123.github.io/fxtobias.github.io/",
+          "description": "See how much you can save on your Meralco bill with our free Philippines Solar Savings Calculator. Get an instant estimate of your investment, payback period, and environmental impact.",
+          "mainEntity": {
+            "@id": "#howto"
+          },
+          "publisher": {
+            "@id": "#organization"
+          }
+        },
+        {
+          "@type": "HowTo",
+          "@id": "#howto",
+          "name": "How to Calculate Your Solar Savings",
+          "description": "A step-by-step guide to estimating your potential savings, system cost, and payback period by switching to solar power in the Philippines.",
+          "totalTime": "PT2M",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Enter Your Monthly Bill",
+              "text": "Input your average monthly electricity bill to establish a baseline for your energy consumption.",
+              "url": "https://polyphase123.github.io/fxtobias.github.io/#bill"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Select System Options",
+              "text": "Choose whether to include batteries and specify your primary electricity usage time (daytime or nighttime).",
+              "url": "https://polyphase123.github.io/fxtobias.github.io/#options"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Adjust Key Assumptions (Optional)",
+              "text": "For a more precise estimate, you can adjust the utility rate, export rate, and financing terms.",
+              "url": "https://polyphase123.github.io/fxtobias.github.io/#assumptions"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Calculate and Review Results",
+              "text": "Click the 'Calculate' button to see a detailed analysis of two recommended solar plans, including investment cost, savings, payback period, and environmental impact.",
+              "url": "https://polyphase123.github.io/fxtobias.github.io/#results"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the payback period for a solar panel system?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The payback period is the time it takes for the total savings from your solar panel system to equal your initial investment. Our calculator provides an estimate based on your electricity bill and system choices."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does self-consumption affect my solar savings?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Self-consumption is the percentage of solar energy you use directly. A higher self-consumption rate leads to greater savings and a shorter payback period because you avoid buying more expensive electricity from the grid."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need batteries for my solar panel system?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Batteries are optional but highly recommended for those who use more electricity at night. They store excess solar energy generated during the day for you to use after sunset, maximizing your savings."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "#organization",
+          "name": "Your Solar Company Name",
+          "url": "https://polyphase123.github.io/fxtobias.github.io/",
+          "logo": "https://polyphase123.github.io/fxtobias.github.io/logo.png",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Your Street Address",
+            "addressLocality": "Pasig City",
+            "addressRegion": "Metro Manila",
+            "postalCode": "1600",
+            "addressCountry": "PH"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+63-936-923-8834",
+            "contactType": "customer service"
+          }
+        }
+      ]
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,9 +176,9 @@
     <div class="main-container w-full mx-auto pb-12">
         <!-- Header Section -->
         <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">SOLAR SAVINGS CALCULATOR</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">PHILIPPINES SOLAR SAVINGS CALCULATOR</h1>
             <div class="w-24 h-1 bg-green-500 mx-auto mt-3 mb-4 rounded"></div>
-            <p class="text-slate-600">Estimate your savings by using our online calculator.</p>
+            <p class="text-slate-600 max-w-2xl mx-auto">Instantly compute your potential savings on your Meralco bill, see solar panel prices in the Philippines, and estimate your investment's payback period.</p>
         </header>
 
         <!-- Calculator Input Section -->
@@ -235,7 +337,7 @@
                     <div id="bawas-specs" class="space-y-3"></div>
 
                     <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment Analysis</h3>
+                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
                     <div id="bawas-investment-analysis" class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="bawas-investment" class="output-group"></div></div>
                         <div id="bawas-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="bawas-payback" class="output-group"></div></div>
@@ -264,7 +366,7 @@
                     <div id="zero-specs" class="space-y-3"></div>
 
                     <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment Analysis</h3>
+                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
                      <div id="zero-investment-analysis" class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="zero-investment" class="output-group"></div></div>
                         <div id="zero-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="zero-payback" class="output-group"></div></div>
@@ -276,7 +378,7 @@
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Environmental Impact (Annual)</h3>
                     <div id="zero-env" class="space-y-3"></div>
 
-                    <p id="net-metering-disclaimer" class="text-xs text-slate-500 mt-6">**Savings are based on an estimated 40% self-consumption and an export rate of ₱5.49/kWh.</p>
+                    <p id="net-metering-disclaimer" class="text-xs text-slate-500 mt-6">**Savings are based on an estimated 40% self-consumption and an export rate of ₱5.49/kWh under the net metering program in the Philippines.</p>
                 </div>
             </div>
         </div>
@@ -733,8 +835,8 @@
             document.getElementById('net-metering-disclaimer').textContent = `**Savings are based on an estimated ${consumptionText}% self-consumption and an export rate of ₱${exportRateValue}/kWh.`;
 
 
-            document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Grid-Tie with Battery" : "Grid-Tie without Battery";
-            document.querySelector('#net-metering-card h2').textContent = addBattery ? "Net-Metering with Battery" : "Net-Metering without Battery";
+            document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery)" : "Grid-Tie Solar System (No Battery)";
+            document.querySelector('#net-metering-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery)" : "Net-Metering Solar System (No Battery)";
 
             // --- RENDER GRID-TIE PLAN ---
             renderOutput('bawas-system-size', ICONS.system, `${data.gridTie.size.toFixed(2)} kWp`);
