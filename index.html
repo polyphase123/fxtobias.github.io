@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philippines Solar Savings Calculator | Meralco Bill & Investment</title>
     <meta name="description" content="Estimate your solar panel price in the Philippines with our free savings calculator. See how much you can save on your Meralco bill, compute your payback period, and explore financing options.">
-    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23FF0000" stroke="black" stroke-width="4"/><circle cx="50" cy="50" r="15" fill="black"/><circle cx="50" cy="25" r="8" fill="black"/><circle cx="71.6" cy="62.5" r="8" fill="black"/><circle cx="28.4" cy="62.5" r="8" fill="black"/></svg>'>
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23FFD700" stroke="black" stroke-width="2"/><path d="M50,15 L55,35 L75,35 L60,48 L65,68 L50,55 L35,68 L40,48 L25,35 L45,35 Z" fill="black"/></svg>'>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -337,6 +337,10 @@
                     <div id="bawas-specs" class="space-y-3"></div>
 
                     <hr class="my-6 border-slate-200">
+                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Ideal For</h3>
+                    <div id="bawas-ideal-for" class="space-y-3"></div>
+
+                    <hr class="my-6 border-slate-200">
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
                     <div id="bawas-investment-analysis" class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="bawas-investment" class="output-group"></div></div>
@@ -364,6 +368,10 @@
                     <hr class="my-6 border-slate-200">
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">System Specifications</h3>
                     <div id="zero-specs" class="space-y-3"></div>
+
+                    <hr class="my-6 border-slate-200">
+                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Ideal For</h3>
+                    <div id="zero-ideal-for" class="space-y-3"></div>
 
                     <hr class="my-6 border-slate-200">
                     <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
@@ -398,8 +406,19 @@
                 </button>
                 <h3 class="text-xl font-bold text-slate-800 mb-2">Donate for beer money</h3>
                 <p class="text-sm text-slate-500 mb-4">GCash</p>
-                <img src="https://www.dropbox.com/scl/fi/khiyhojktogq5b4lu9rxw/Screenshot_20250713_223151_GCash.jpg?rlkey=sy4spjyzcbkasdwjnnuh7tggj&raw=1" alt="GCash QR Code" class="mx-auto rounded-md shadow-sm w-full max-w-[200px]">
+                <img src="https://www.dropbox.com/scl/fi/khiyhojktogq5b4lu9rxw/Screenshot_20250713_223151_GCash.jpg?rlkey=sy4spjyzcbkasdwjnnuh7tggj&raw=1" alt="GCash QR Code" class="mx-auto rounded-md shadow-sm w-full max-w-[200px]" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/475569?text=QR+Code';">
                 <p class="mt-4 font-semibold text-slate-700 text-lg">0936 923 8834</p>
+            </div>
+        </div>
+
+        <!-- Alert Modal -->
+        <div id="alert-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center relative">
+                <h3 class="text-xl font-bold text-red-600 mb-4">Invalid Input</h3>
+                <p class="text-slate-600 mb-6"></p>
+                <button onclick="closeModal()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                    OK
+                </button>
             </div>
         </div>
 
@@ -449,6 +468,15 @@
             { bill: 10000, kwp: 5.40 }, { bill: 12500, kwp: 6.54 }, { bill: 20000, kwp: 15.12 },
             { bill: 40000, kwp: 22.79 }, { bill: 121000, kwp: 63.33 }, { bill: 150000, kwp: 78.50 },
             { bill: 180000, kwp: 94.20 }, { bill: 191000, kwp: 99.96 }
+        ];
+
+        const IDEAL_FOR_DATA = [
+            { kwp: 3, acu_1hp: 0, acu_1_5hp: 2, acu_2hp: 0, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
+            { kwp: 5, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 0, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
+            { kwp: 8, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 1, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
+            { kwp: 10, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 2, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
+            { kwp: 15, acu_1hp: 3, acu_1_5hp: 3, acu_2hp: 2, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
+            { kwp: 20, acu_1hp: 3, acu_1_5hp: 3, acu_2hp: 3, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] }
         ];
 
         // --- Icon Templates ---
@@ -511,17 +539,28 @@
         }
         
         // --- Donation Modal and Sound ---
-        const coinSynth = new Tone.Synth({
-            oscillator: { type: 'triangle' },
-            envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }
-        }).toDestination();
+        let coinSynth;
+        try {
+            coinSynth = new Tone.Synth({
+                oscillator: { type: 'triangle' },
+                envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }
+            }).toDestination();
+        } catch (e) {
+            console.error("Tone.js could not be initialized.", e);
+        }
+        
 
         function playCoinSound() {
+            if (!coinSynth) return;
             if (Tone.context.state !== 'running') {
-                Tone.start();
+                Tone.start().catch(e => console.error("Tone.js could not start audio context.", e));
             }
-            coinSynth.triggerAttackRelease("B5", "16n", Tone.now());
-            coinSynth.triggerAttackRelease("E6", "16n", Tone.now() + 0.1);
+            try {
+                coinSynth.triggerAttackRelease("B5", "16n", Tone.now());
+                coinSynth.triggerAttackRelease("E6", "16n", Tone.now() + 0.1);
+            } catch(e) {
+                console.error("Error playing sound.", e);
+            }
         }
 
         function openDonationModal() {
@@ -576,6 +615,47 @@
                     return lower.cost + (kwpFraction * costRange);
                 }
             }
+        }
+
+        function getIdealForAppliances(kwp) {
+            IDEAL_FOR_DATA.sort((a, b) => a.kwp - b.kwp);
+            const first = IDEAL_FOR_DATA[0];
+            const last = IDEAL_FOR_DATA[IDEAL_FOR_DATA.length - 1];
+
+            const interpolate = (x, x0, y0, x1, y1) => {
+                if (x1 - x0 === 0) return y0;
+                return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+            };
+
+            let appliances = {};
+
+            if (kwp <= first.kwp) {
+                const second = IDEAL_FOR_DATA[1];
+                appliances.acu_1hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_1hp, second.kwp, second.acu_1hp)));
+                appliances.acu_1_5hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_1_5hp, second.kwp, second.acu_1_5hp)));
+                appliances.acu_2hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_2hp, second.kwp, second.acu_2hp)));
+            }
+            else if (kwp >= last.kwp) {
+                const secondLast = IDEAL_FOR_DATA[IDEAL_FOR_DATA.length - 2];
+                appliances.acu_1hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_1hp, last.kwp, last.acu_1hp));
+                appliances.acu_1_5hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_1_5hp, last.kwp, last.acu_1_5hp));
+                appliances.acu_2hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_2hp, last.kwp, last.acu_2hp));
+            }
+            else {
+                for (let i = 0; i < IDEAL_FOR_DATA.length - 1; i++) {
+                    const lower = IDEAL_FOR_DATA[i];
+                    const upper = IDEAL_FOR_DATA[i + 1];
+                    if (kwp >= lower.kwp && kwp < upper.kwp) {
+                        appliances.acu_1hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_1hp, upper.kwp, upper.acu_1hp));
+                        appliances.acu_1_5hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_1_5hp, upper.kwp, upper.acu_1_5hp));
+                        appliances.acu_2hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_2hp, upper.kwp, upper.acu_2hp));
+                        break;
+                    }
+                }
+            }
+            
+            appliances.base_load = first.base_load;
+            return appliances;
         }
 
         function getBestBatteryCombination(requiredWh) {
@@ -714,6 +794,7 @@
             }
 
             const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
+            const idealFor = getIdealForAppliances(panelKwp);
             
             const monthlyKwhGenerated = panelKwp * peakSunHours * CONFIG.DAYS_IN_MONTH;
             let averageMonthlySavings;
@@ -742,7 +823,7 @@
             const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batterySystem.cost, financing);
             const environmental = calculateEnvironmentalImpact(panelKwp);
             
-            return { size: panelKwp, rooftopArea, averageSavings: averageMonthlySavings, specs, ...financials, environmental };
+            return { size: panelKwp, rooftopArea, averageSavings: averageMonthlySavings, specs, idealFor, ...financials, environmental };
         }
 
         function calculateSavings() {
@@ -829,6 +910,33 @@
                 `;
             };
 
+            const renderIdealFor = (containerId, appliances) => {
+                const container = document.getElementById(containerId);
+                if (!container || !appliances) {
+                    container.innerHTML = ''; // Clear it if no data
+                    return;
+                };
+
+                let applianceItems = [];
+                if (appliances.acu_1hp > 0) applianceItems.push(`${appliances.acu_1hp} x 1.0hp Aircon`);
+                if (appliances.acu_1_5hp > 0) applianceItems.push(`${appliances.acu_1_5hp} x 1.5hp Aircon`);
+                if (appliances.acu_2hp > 0) applianceItems.push(`${appliances.acu_2hp} x 2.0hp Aircon`);
+                if (appliances.base_load && appliances.base_load.length > 0) {
+                    applianceItems = applianceItems.concat(appliances.base_load);
+                }
+                
+                const midPoint = Math.ceil(applianceItems.length / 2);
+                const col1Items = applianceItems.slice(0, midPoint);
+                const col2Items = applianceItems.slice(midPoint);
+
+                container.innerHTML = `
+                    <div class="grid grid-cols-2 gap-x-4">
+                        <div>${col1Items.map(item => createSpecItem(item)).join('')}</div>
+                        <div>${col2Items.map(item => createSpecItem(item)).join('')}</div>
+                    </div>
+                `;
+            };
+
             const consumptionText = selfConsumptionRate * 100;
             const exportRateValue = (parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE).toFixed(2);
 
@@ -837,7 +945,7 @@
 
 
             document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery)" : "Grid-Tie Solar System (No Battery)";
-            document.querySelector('#net-metering-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery)" : "Net-Metering Solar System (No Battery)";
+            document.querySelector('#net-metering-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery) + Net Metering" : "Net-Metering Solar System (No Battery)";
 
             // --- RENDER GRID-TIE PLAN ---
             renderOutput('bawas-system-size', ICONS.system, `${data.gridTie.size.toFixed(2)} kWp`);
@@ -870,6 +978,7 @@
                 createSpecItem(`<strong>Inclusions:</strong> ${data.gridTie.specs.inclusions}`),
             ].filter(Boolean).join('');
             document.getElementById('bawas-specs').innerHTML = gridTieSpecsHtml;
+            renderIdealFor('bawas-ideal-for', data.gridTie.idealFor);
             renderEnvImpact('bawas-env', data.gridTie.environmental);
 
             // --- RENDER NET-METERING PLAN ---
@@ -903,6 +1012,7 @@
                 createSpecItem(`<strong>Inclusions:</strong> ${data.netMetering.specs.inclusions}`),
             ].filter(Boolean).join('');
             document.getElementById('zero-specs').innerHTML = netMeteringSpecsHtml;
+            renderIdealFor('zero-ideal-for', data.netMetering.idealFor);
             renderEnvImpact('zero-env', data.netMetering.environmental);
 
             document.getElementById('results').classList.remove('hidden');
