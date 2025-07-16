@@ -325,7 +325,7 @@
                 
                 <!-- Plan 1 Card -->
                 <div id="grid-tie-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
-                    <h2 id="bawas-title" class="text-2xl font-bold text-center mb-6 text-slate-800">Grid-Tie without Battery</h2>
+                    <h2 id="bawas-title" class="text-2xl font-bold text-center mb-6 text-slate-800 leading-tight"></h2>
                     <div class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Recommended System Size</label><div id="bawas-system-size" class="output-group"></div></div>
                         <div><label class="text-sm font-medium text-slate-500">Estimated monthly savings*</label><div id="bawas-savings" class="output-group"></div></div>
@@ -358,7 +358,7 @@
 
                 <!-- Plan 2 Card -->
                 <div id="net-metering-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
-                    <h2 id="zero-title" class="text-2xl font-bold text-center mb-6 text-slate-800">Net-Metering without Battery</h2>
+                    <h2 id="zero-title" class="text-2xl font-bold text-center mb-6 text-slate-800 leading-tight"></h2>
                     <div class="space-y-4">
                         <div><label class="text-sm font-medium text-slate-500">Recommended System Size</label><div id="zero-system-size" class="output-group"></div></div>
                         <div><label class="text-sm font-medium text-slate-500">Estimated monthly savings**</label><div id="zero-savings" class="output-group"></div></div>
@@ -943,9 +943,16 @@
             document.getElementById('grid-tie-disclaimer').textContent = `*Savings are based on an estimated ${consumptionText}% self-consumption of generated power, as excess power is not exported for credit in this setup.`;
             document.getElementById('net-metering-disclaimer').textContent = `**Savings are based on an estimated ${consumptionText}% self-consumption and an export rate of ₱${exportRateValue}/kWh.`;
 
+            const subtextStyle = "text-lg font-medium text-slate-500";
+            
+            document.querySelector('#bawas-title').innerHTML = addBattery 
+                ? `Hybrid Solar System<br><span class='${subtextStyle}'>(With Battery)</span>` 
+                : `Grid-Tie Solar System<br><span class='${subtextStyle}'>(No Battery)</span>`;
 
-            document.querySelector('#grid-tie-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery)" : "Grid-Tie Solar System (No Battery)";
-            document.querySelector('#net-metering-card h2').textContent = addBattery ? "Hybrid Solar System (With Battery) + Net Metering" : "Net-Metering Solar System (No Battery)";
+            document.querySelector('#zero-title').innerHTML = addBattery 
+                ? `Hybrid Solar System + Net Metering<br><span class='${subtextStyle}'>(With Battery)</span>` 
+                : `Net-Metering Solar System<br><span class='${subtextStyle}'>(No Battery)</span>`;
+
 
             // --- RENDER GRID-TIE PLAN ---
             renderOutput('bawas-system-size', ICONS.system, `${data.gridTie.size.toFixed(2)} kWp`);
