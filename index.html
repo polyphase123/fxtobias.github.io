@@ -768,7 +768,7 @@
         function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batteryCost, financing) {
             let investmentCost = getSystemCost(panelKwp, GRID_TIE_COST_DATA);
             if (isNetMeteringPlan) {
-                const netMeteringFee = Math.max(30000, investmentCost * 0.1);
+                const netMeteringFee = Math.min(55000, Math.max(30000, investmentCost * 0.1));
                 investmentCost += netMeteringFee;
             }
             investmentCost += batteryCost;
