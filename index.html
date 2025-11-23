@@ -2,1044 +2,645 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philippines Solar Savings Calculator | Meralco Bill & Investment</title>
-    <meta name="description" content="Estimate your solar panel price in the Philippines with our free savings calculator. See how much you can save on your Meralco bill, compute your payback period, and explore financing options.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IIEE 50th Convention Tracker</title>
     
-    <!-- Favicon -->
-    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23FF0000" stroke="black" stroke-width="4"/><circle cx="50" cy="50" r="15" fill="black"/><circle cx="50" cy="25" r="8" fill="black"/><circle cx="71.6" cy="62.5" r="8" fill="black"/><circle cx="28.4" cy="62.5" r="8" fill="black"/></svg>'>
+    <!-- 1. Load Tailwind CSS (Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Social Media Preview / Open Graph Tags -->
-    <meta property="og:title" content="Philippines Solar Savings Calculator | Meralco Bill & Investment">
-    <meta property="og:description" content="Estimate your solar panel price in the Philippines with our free savings calculator. See how much you can save on your Meralco bill, compute your payback period, and explore financing options.">
-    <meta property="og:image" content="https://www.dropbox.com/scl/fi/q0gea2srano6vsh1lh663/Gemini_Generated_Image_5ywscp5ywscp5yws.png?rlkey=ae8rxtjcy0qkqtzjgzk1z620j&raw=1">
-    <meta property="og:url" content="https://polyphase123.github.io/fxtobias.github.io/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Philippines Solar Savings Calculator | Meralco Bill & Investment">
-    <meta name="twitter:description" content="Estimate your solar panel price in the Philippines with our free savings calculator. See how much you can save on your Meralco bill, compute your payback period, and explore financing options.">
-    <meta name="twitter:image" content="https://www.dropbox.com/scl/fi/q0gea2srano6vsh1lh663/Gemini_Generated_Image_5ywscp5ywscp5yws.png?rlkey=ae8rxtjcy0qkqtzjgzk1z620j&raw=1">
-
-    <script type="application/ld+json">
+    <!-- 2. Load Babel to translate React Code in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- 3. Load React and Libraries from the Cloud -->
+    <script type="importmap">
     {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "name": "Philippines Solar Savings Calculator",
-          "url": "https://polyphase123.github.io/fxtobias.github.io/",
-          "description": "See how much you can save on your Meralco bill with our free Philippines Solar Savings Calculator. Get an instant estimate of your investment, payback period, and environmental impact.",
-          "mainEntity": {
-            "@id": "#howto"
-          },
-          "publisher": {
-            "@id": "#organization"
-          }
-        },
-        {
-          "@type": "HowTo",
-          "@id": "#howto",
-          "name": "How to Calculate Your Solar Savings",
-          "description": "A step-by-step guide to estimating your potential savings, system cost, and payback period by switching to solar power in the Philippines.",
-          "totalTime": "PT2M",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Enter Your Monthly Bill",
-              "text": "Input your average monthly electricity bill to establish a baseline for your energy consumption.",
-              "url": "https://polyphase123.github.io/fxtobias.github.io/#bill"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Select System Options",
-              "text": "Choose whether to include batteries and specify your primary electricity usage time (daytime or nighttime).",
-              "url": "https://polyphase123.github.io/fxtobias.github.io/#options"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Adjust Key Assumptions (Optional)",
-              "text": "For a more precise estimate, you can adjust the utility rate, export rate, and financing terms.",
-              "url": "https://polyphase123.github.io/fxtobias.github.io/#assumptions"
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Calculate and Review Results",
-              "text": "Click the 'Calculate' button to see a detailed analysis of two recommended solar plans, including investment cost, savings, payback period, and environmental impact.",
-              "url": "https://polyphase123.github.io/fxtobias.github.io/#results"
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is the payback period for a solar panel system?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "The payback period is the time it takes for the total savings from your solar panel system to equal your initial investment. Our calculator provides an estimate based on your electricity bill and system choices."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How does self-consumption affect my solar savings?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Self-consumption is the percentage of solar energy you use directly. A higher self-consumption rate leads to greater savings and a shorter payback period because you avoid buying more expensive electricity from the grid."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Do I need batteries for my solar panel system?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Batteries are optional but highly recommended for those who use more electricity at night. They store excess solar energy generated during the day for you to use after sunset, maximizing your savings."
-              }
-            }
-          ]
-        },
-        {
-          "@type": "Organization",
-          "@id": "#organization",
-          "name": "Your Solar Company Name",
-          "url": "https://polyphase123.github.io/fxtobias.github.io/",
-          "logo": "https://polyphase123.github.io/fxtobias.github.io/logo.png",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Your Street Address",
-            "addressLocality": "Pasig City",
-            "addressRegion": "Metro Manila",
-            "postalCode": "1600",
-            "addressCountry": "PH"
-          },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+63-936-923-8834",
-            "contactType": "customer service"
-          }
-        }
-      ]
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "lucide-react": "https://esm.sh/lucide-react@0.263.1"
+      }
     }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Custom styles to complement Tailwind */
+        /* Custom Scrollbar for mobile feel */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        .animate-slide-up { animation: slideUp 0.4s ease-out; }
+        
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Mobile Safe Area Fixes */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-        }
-        .main-container {
-            max-width: 900px;
-        }
-        /* Custom focus ring color */
-        .form-input:focus, .form-select:focus, .rate-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3); /* green-500 with opacity */
-            border-color: #22c55e; /* green-500 */
-        }
-        .form-select-custom {
-            text-align: center;
-            text-align-last: center; /* For Firefox */
-        }
-        .form-select-custom option {
-            text-align: left; /* For dropdown options */
-        }
-        .output-group {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .output-value {
-             font-size: 1.125rem; /* text-lg */
-             font-weight: 600; /* font-semibold */
-             color: #1e293b; /* slate-800 */
-        }
-        .spec-list-item {
-            display: flex;
-            align-items: start;
-            gap: 0.75rem;
-            font-size: 0.9rem; 
-            color: #475569; /* slate-600 */
-        }
-        .assumption-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-        .rate-input-wrapper {
-            position: relative;
-        }
-        .rate-input {
-            width: 100%;
-            padding-left: 1.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            border: 1px solid #cbd5e1; /* slate-300 */
-            border-radius: 0.5rem; /* rounded-lg */
-            transition: all 0.2s;
+            padding-bottom: env(safe-area-inset-bottom);
         }
     </style>
 </head>
-<body class="text-slate-800 flex items-start md:items-center justify-center min-h-screen p-4 md:p-6">
+<body class="bg-gray-100 text-slate-800 h-screen w-screen overflow-hidden select-none">
 
-    <div class="main-container w-full mx-auto pb-12">
-        <!-- Header Section -->
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">PHILIPPINES SOLAR SAVINGS CALCULATOR</h1>
-            <div class="w-24 h-1 bg-green-500 mx-auto mt-3 mb-4 rounded"></div>
-            <p class="text-slate-600 max-w-2xl mx-auto">Instantly compute your potential savings on your Meralco bill, see solar panel prices in the Philippines, and estimate your investment's payback period.</p>
-        </header>
+    <!-- App Root Container -->
+    <div id="root" class="h-full w-full"></div>
 
-        <!-- Calculator Input Section -->
-        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-end gap-4">
-                <div class="w-full">
-                    <label for="bill" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        Monthly Bill
-                    </label>
-                    <div class="relative mt-1">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
-                        <input type="number" id="bill" class="form-input w-full pl-8 pr-4 py-3 border border-slate-300 rounded-lg transition duration-200" placeholder="e.g., 12000">
-                    </div>
-                </div>
-                <div class="w-full">
-                     <label for="add-battery" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        Add Batteries?
-                    </label>
-                     <div class="relative mt-1">
-                        <select id="add-battery" class="form-select w-full px-4 py-3 border border-slate-300 rounded-lg transition duration-200">
-                            <option value="no" selected>No</option>
-                            <option value="yes">Yes</option>
-                        </select>
-                    </div>
-                </div>
-                 <div class="w-full">
-                    <label for="battery-hours" class="font-medium text-slate-700 whitespace-nowrap flex items-center gap-2">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Max Amps of Battery Use
-                    </label>
-                     <div class="relative mt-1">
-                        <select id="battery-hours" class="form-select w-full px-4 py-3 border border-slate-300 rounded-lg transition duration-200">
-                            <option value="8">8 hours</option>
-                            <option value="7">7 hours</option>
-                            <option value="6">6 hours</option>
-                            <option value="5">5 hours</option>
-                            <option value="4">4 hours</option>
-                            <option value="3">3 hours</option>
-                            <option value="2" selected>2 hours</option>
-                            <option value="1">1 hour</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-             <div class="mt-4">
-                 <button onclick="calculateSavings()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-md hover:shadow-lg">
-                    Calculate
-                </button>
-            </div>
-        </div>
-        
-        <!-- Assumptions Section -->
-        <div class="bg-slate-100 p-6 rounded-lg mb-8">
-            <h3 class="font-bold text-slate-700 text-center mb-4">Key Assumptions</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-slate-600">
-                <div class="assumption-item">
-                    <label for="utility-rate" class="font-medium text-slate-700">Utility Rate (/kWh)</label>
-                    <div class="rate-input-wrapper">
-                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
-                        <input type="number" id="utility-rate" step="0.01" min="7" max="16" class="rate-input bg-white">
-                    </div>
-                </div>
-                 <div class="assumption-item">
-                    <label for="export-rate" class="font-medium text-slate-700">Export Rate (/kWh)</label>
-                     <div class="rate-input-wrapper">
-                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">₱</span>
-                        <input type="number" id="export-rate" step="0.01" class="rate-input bg-white">
-                    </div>
-                </div>
-                <div class="assumption-item">
-                    <label for="peak-sun-hours" class="font-medium text-slate-700">Peak Sun Hours</label>
-                    <input type="number" id="peak-sun-hours" step="0.1" min="3" max="5" class="form-input w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
-                </div>
-                <div class="assumption-item">
-                    <label for="usage-time" class="font-medium text-slate-700">Primary Usage Time</label>
-                    <select id="usage-time" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
-                        <option value="nighttime" selected>Mostly Nighttime</option>
-                        <option value="daytime">Mostly Daytime</option>
-                    </select>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600 mt-4 pt-4 border-t border-slate-200">
-                 <div class="assumption-item">
-                    <label for="financing" class="font-medium text-slate-700">Financing</label>
-                    <select id="financing" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
-                        <option value="no" selected>No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                </div>
-                 <div id="financing-details" class="hidden md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="assumption-item">
-                        <label for="interest-rate" class="font-medium text-slate-700">Interest Rate (%)</label>
-                        <select id="interest-rate" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
-                        </select>
-                    </div>
-                    <div class="assumption-item">
-                        <label for="loan-term" class="font-medium text-slate-700">Loan Term (Years)</label>
-                        <select id="loan-term" class="form-select w-full px-4 py-2 border border-slate-300 rounded-lg transition duration-200 bg-white">
-                            <option value="1">1 Year</option>
-                            <option value="2">2 Years</option>
-                            <option value="3">3 Years</option>
-                            <option value="4">4 Years</option>
-                            <option value="5" selected>5 Years</option>
-                            <option value="6">6 Years</option>
-                            <option value="7">7 Years</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-             <div class="mt-4 pt-4 border-t border-slate-200">
-                <div class="font-medium text-slate-700 mb-2 text-center md:text-left">Environmental Impact (Annual per kWp):</div>
-                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                    <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>
-                        <div>
-                            <span class="font-bold text-slate-800">460 kg</span>
-                            <span class="text-xs block">CO2 Emissions Reduced</span>
-                        </div>
-                    </div>
-                     <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                        <div>
-                            <span class="font-bold text-slate-800">404 L</span>
-                            <span class="text-xs block">Gasoline Saved</span>
-                        </div>
-                    </div>
-                     <div class="bg-white/60 p-3 rounded-lg flex items-center gap-3">
-                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <div>
-                            <span class="font-bold text-slate-800">24</span>
-                            <span class="text-xs block">Equivalent Trees Planted</span>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-        </div>
+    <!-- 4. The Application Logic -->
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect, useMemo } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { 
+            Search, Clock, MapPin, Star, Calendar, ChevronRight, Menu, X, 
+            CheckCircle, User, Award, Info, QrCode, Share2, Phone, Mail, 
+            LayoutGrid, Download, Zap, PenTool, FileText, Printer, Save, 
+            Compass, Coffee, Beer, Cigarette, BedDouble, CalendarDays, Keyboard,
+            Play, Filter
+        } from 'lucide-react';
 
+        // --- CONFIGURATION ---
+        const THEME = "Celebrating 50 Years of Integrity, Innovation, Empowerment, and Excellence";
+        const DEV_NAME = "Engr. Franz Xyrlo Tobias, PEE";
+        const DEV_CONTACT = "0936 923 8834";
 
-        <!-- Results Section -->
-        <div id="results" class="hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
-                <!-- Plan 1 Card -->
-                <div id="grid-tie-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
-                    <h2 id="bawas-title" class="text-2xl font-bold text-center mb-6 text-slate-800 leading-tight"></h2>
-                    <div class="space-y-4">
-                        <div><label class="text-sm font-medium text-slate-500">Recommended System Size</label><div id="bawas-system-size" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Estimated monthly savings*</label><div id="bawas-savings" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Estimated Rooftop Area Needed</label><div id="bawas-rooftop-area" class="output-group"></div></div>
-                    </div>
-                    
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">System Specifications</h3>
-                    <div id="bawas-specs" class="space-y-3"></div>
+        // --- DATA ---
+        const VENUE_GUIDE = [
+            { category: "Dining", icon: Coffee, color: "text-orange-600 bg-orange-50", items: [
+                { name: "Vikings Luxury Buffet", loc: "SM MOA (By the Bay)", desc: "Massive international buffet." },
+                { name: "Texas Roadhouse", loc: "S Maison", desc: "Legendary steaks and ribs." },
+                { name: "The Coffee Bean", loc: "SMX Ground Level", desc: "Quick coffee breaks." },
+                { name: "Gloria Maris", loc: "MAAX Building", desc: "Chinese cuisine (Near Arena)." }
+            ]},
+            { category: "Bars", icon: Beer, color: "text-purple-600 bg-purple-50", items: [
+                { name: "Hard Rock Cafe", loc: "S Maison (Lvl 2)", desc: "Live music & cocktails." },
+                { name: "C Lounge", loc: "Conrad Manila", desc: "Rooftop sunset views." }
+            ]},
+            { category: "Hotels", icon: BedDouble, color: "text-blue-600 bg-blue-50", items: [
+                { name: "Conrad Manila", loc: "Direct Access", desc: "Connected via bridges." },
+                { name: "Microtel by Wyndham", loc: "Coral Way", desc: "Walking distance." },
+                { name: "Hotel 101 Manila", loc: "EDSA Ext", desc: "Popular for delegations." }
+            ]},
+            { category: "Smoking", icon: Cigarette, color: "text-gray-600 bg-gray-100", items: [
+                { name: "Designated Area", loc: "Back of SMX", desc: "Strictly outdoor only." }
+            ]}
+        ];
 
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Ideal For</h3>
-                    <div id="bawas-ideal-for" class="space-y-3"></div>
+        // UPDATED SCHEDULE BASED ON UPLOADED IMAGES
+        const RAW_EVENTS = [
+            // --- MONDAY, NOV 24 ---
+            { id: 101, day: "2025-11-24", start: "08:00", end: "17:00", title: "Students' Activities", location: "Function Rooms 1-2", category: "Student", type: "Physical", points: 0 },
+            { id: 102, day: "2025-11-24", start: "08:00", end: "17:00", title: "RME Skills Olympics", location: "Function Room 3", category: "Technical", type: "Physical", points: 0 },
+            { id: 103, day: "2025-11-24", start: "08:00", end: "17:00", title: "Standards Committee", location: "Meeting Rooms 7 & 8", category: "Meeting", type: "Physical", points: 0 },
+            { id: 104, day: "2025-11-24", start: "08:00", end: "17:00", title: "Releasing of Kits", location: "Meeting Rooms 4, 5 & 6", category: "Registration", type: "Physical", points: 0 },
+            { id: 105, day: "2025-11-24", start: "08:00", end: "17:00", title: "Basketball", location: "Koten Gym, Pasay City", category: "Sports", type: "Physical", points: 0 },
 
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
-                    <div id="bawas-investment-analysis" class="space-y-4">
-                        <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="bawas-investment" class="output-group"></div></div>
-                        <div id="bawas-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="bawas-payback" class="output-group"></div></div>
-                        <div id="bawas-amortization-container" class="hidden"><label id="bawas-amortization-label" class="text-sm font-medium text-slate-500">Monthly Amortization</label><div id="bawas-amortization" class="output-group"></div></div>
-                        <div id="bawas-interest-container" class="hidden"><label class="text-sm font-medium text-slate-500">Total Interest Paid</label><div id="bawas-interest" class="output-group"></div></div>
-                    </div>
-                    
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Environmental Impact (Annual)</h3>
-                    <div id="bawas-env" class="space-y-3"></div>
+            // --- TUESDAY, NOV 25 ---
+            { id: 201, day: "2025-11-25", start: "08:00", end: "17:00", title: "Students' Activities", location: "Function Rooms 1-2", category: "Student", type: "Physical", points: 0 },
+            { id: 202, day: "2025-11-25", start: "08:00", end: "17:00", title: "Mega Webinar", location: "Function Room 3", category: "Technical", type: "Hybrid", points: 8 },
+            { id: 203, day: "2025-11-25", start: "08:00", end: "17:00", title: "PEC Activities", location: "Meeting Rooms 7 & 8", category: "Technical", type: "Physical", points: 0 },
+            { id: 204, day: "2025-11-25", start: "08:00", end: "17:00", title: "Technical Sessions (Hybrid)", location: "Meeting Rooms 4, 5 & 6", category: "Technical", type: "Hybrid", points: 8 },
+            { id: 205, day: "2025-11-25", start: "08:00", end: "22:00", title: "Golf Tournament", location: "The Orchard Golf and Country Club", category: "Sports", type: "Physical", points: 0 },
+            { id: 206, day: "2025-11-25", start: "13:00", end: "17:00", title: "Bowling Tournament", location: "AMF Puyat Superbowl, Makati", category: "Sports", type: "Physical", points: 0 },
+            { id: 207, day: "2025-11-25", start: "08:00", end: "17:00", title: "Basketball", location: "Koten Gym, Pasay City", category: "Sports", type: "Physical", points: 0 },
+            { id: 208, day: "2025-11-25", start: "08:00", end: "17:00", title: "Kit Distribution", location: "Meeting Room 3", category: "Registration", type: "Physical", points: 0 },
 
-                    <p id="grid-tie-disclaimer" class="text-xs text-slate-500 mt-6">*Savings are based on an estimated 40% self-consumption of generated power, as excess power is not exported for credit in this setup.</p>
-                </div>
+            // --- WEDNESDAY, NOV 26 ---
+            { id: 301, day: "2025-11-26", start: "08:00", end: "17:00", title: "Students' Activities", location: "Function Rooms 1-2", category: "Student", type: "Physical", points: 0 },
+            { id: 302, day: "2025-11-26", start: "08:00", end: "17:00", title: "Mega Webinar", location: "Function Room 3", category: "Technical", type: "Hybrid", points: 8 },
+            { id: 303, day: "2025-11-26", start: "08:00", end: "17:00", title: "RME Forum", location: "Meeting Rooms 7-8", category: "Technical", type: "Physical", points: 4 },
+            { id: 304, day: "2025-11-26", start: "08:00", end: "17:00", title: "Electrical Safety Conference", location: "Meeting Room 4, 5 & 6", category: "Technical", type: "Physical", points: 4 },
+            { id: 305, day: "2025-11-26", start: "06:00", end: "22:00", title: "Plant Tour", location: "Pililla Windmill Power Source", category: "Tour", type: "Physical", points: 0 },
+            { id: 306, day: "2025-11-26", start: "08:00", end: "17:00", title: "Basketball", location: "Koten Gym, Pasay City", category: "Sports", type: "Physical", points: 0 },
+            { id: 307, day: "2025-11-26", start: "08:00", end: "17:00", title: "Volleyball", location: "MET Park, MOA Complex", category: "Sports", type: "Physical", points: 0 },
+            { id: 308, day: "2025-11-26", start: "08:00", end: "17:00", title: "Corporate Social Responsibility", location: "TBA", category: "Social", type: "Physical", points: 0 },
+            { id: 309, day: "2025-11-26", start: "08:00", end: "13:00", title: "Opening of the Exhibit", location: "Halls 1-4, Function Room 5", category: "Expo", type: "Physical", points: 0 },
 
-                <!-- Plan 2 Card -->
-                <div id="net-metering-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
-                    <h2 id="zero-title" class="text-2xl font-bold text-center mb-6 text-slate-800 leading-tight"></h2>
-                    <div class="space-y-4">
-                        <div><label class="text-sm font-medium text-slate-500">Recommended System Size</label><div id="zero-system-size" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Estimated monthly savings**</label><div id="zero-savings" class="output-group"></div></div>
-                        <div><label class="text-sm font-medium text-slate-500">Estimated Rooftop Area Needed</label><div id="zero-rooftop-area" class="output-group"></div></div>
-                    </div>
+            // --- THURSDAY, NOV 27 ---
+            { id: 401, day: "2025-11-27", start: "08:30", end: "11:30", title: "Opening Ceremonies", location: "Function Rooms 1-4", category: "Main", type: "Physical", points: 0 },
+            { id: 402, day: "2025-11-27", start: "10:00", end: "19:00", title: "Exhibit Viewing", location: "Halls 1-4, Function Room 5", category: "Expo", type: "Physical", points: 0 },
+            { id: 403, day: "2025-11-27", start: "08:00", end: "17:00", title: "Research & Devt Committee", location: "Meeting Rooms 4, 5 & 6", category: "Technical", type: "Physical", points: 4 },
+            { id: 404, day: "2025-11-27", start: "08:00", end: "12:00", title: "Academe Forum", location: "Meeting Room 7 & 8", category: "Technical", type: "Physical", points: 4 },
+            { id: 405, day: "2025-11-27", start: "13:00", end: "17:00", title: "EE Educator's Forum", location: "Meeting Room 7 & 8", category: "Technical", type: "Physical", points: 4 },
+            { id: 406, day: "2025-11-27", start: "08:00", end: "12:00", title: "Young Professionals Forum", location: "Philflex Bay Center, Pasay", category: "Technical", type: "Physical", points: 3 },
+            { id: 407, day: "2025-11-27", start: "08:00", end: "18:00", title: "IIEE WEN Forum", location: "Exhibit Area", category: "Technical", type: "Physical", points: 3 },
+            { id: 408, day: "2025-11-27", start: "11:00", end: "15:00", title: "BEE / COFNAP / BOG Luncheon", location: "Gloria Maris, MAAX", category: "Business", type: "Physical", points: 0 },
+            { id: 409, day: "2025-11-27", start: "13:00", end: "23:59", title: "Exhibitors Appreciation Night", location: "Function Room 4", category: "Social", type: "Physical", points: 0 },
+            { id: 410, day: "2025-11-27", start: "13:30", end: "16:30", title: "Technical Session (Track 1)", location: "Function Room 1", category: "Technical", type: "Physical", points: 3 },
+            { id: 411, day: "2025-11-27", start: "13:30", end: "16:30", title: "Technical Session (Track 2)", location: "Function Room 2", category: "Technical", type: "Physical", points: 3 },
+            { id: 412, day: "2025-11-27", start: "13:30", end: "16:30", title: "Technical Session (Track 3)", location: "Function Room 3", category: "Technical", type: "Physical", points: 3 },
+            { id: 413, day: "2025-11-27", start: "13:30", end: "16:30", title: "Technical Session (Track 4)", location: "Function Room 4", category: "Technical", type: "Physical", points: 3 },
+            { id: 414, day: "2025-11-27", start: "18:00", end: "23:59", title: "Practitioners' Night", location: "Function Rooms 1-4", category: "Social", type: "Physical", points: 0 },
 
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">System Specifications</h3>
-                    <div id="zero-specs" class="space-y-3"></div>
+            // --- FRIDAY, NOV 28 ---
+            { id: 501, day: "2025-11-28", start: "08:30", end: "12:00", title: "Technical Session (Morning 1)", location: "Function Room 1", category: "Technical", type: "Physical", points: 3 },
+            { id: 502, day: "2025-11-28", start: "08:30", end: "12:00", title: "Technical Session (Morning 2)", location: "Function Room 2", category: "Technical", type: "Physical", points: 3 },
+            { id: 503, day: "2025-11-28", start: "08:30", end: "12:00", title: "Technical Session (Morning 3)", location: "Function Room 3", category: "Technical", type: "Physical", points: 3 },
+            { id: 504, day: "2025-11-28", start: "08:30", end: "12:00", title: "Technical Session (Morning 4)", location: "Function Room 4", category: "Technical", type: "Physical", points: 3 },
+            { id: 505, day: "2025-11-28", start: "13:00", end: "15:00", title: "Technical Session (Afternoon 1)", location: "Function Room 1", category: "Technical", type: "Physical", points: 2 },
+            { id: 506, day: "2025-11-28", start: "13:00", end: "15:00", title: "Technical Session (Afternoon 2)", location: "Function Room 2", category: "Technical", type: "Physical", points: 2 },
+            { id: 507, day: "2025-11-28", start: "13:00", end: "15:00", title: "Technical Session (Afternoon 3)", location: "Function Room 3", category: "Technical", type: "Physical", points: 2 },
+            { id: 508, day: "2025-11-28", start: "15:00", end: "18:00", title: "General Membership Meeting", location: "Function Rooms 1-3", category: "Business", type: "Physical", points: 0 },
 
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Ideal For</h3>
-                    <div id="zero-ideal-for" class="space-y-3"></div>
+            // --- SATURDAY, NOV 29 ---
+            { id: 601, day: "2025-11-29", start: "08:30", end: "12:00", title: "Career Dev Mentoring", location: "Function Room 1", category: "Student", type: "Physical", points: 0 },
+            { id: 602, day: "2025-11-29", start: "08:30", end: "15:30", title: "Technical Session (All Day)", location: "Function Room 2", category: "Technical", type: "Physical", points: 6 },
+            { id: 603, day: "2025-11-29", start: "08:30", end: "15:30", title: "Technical Session (All Day)", location: "Function Room 4", category: "Technical", type: "Physical", points: 6 },
+            { id: 604, day: "2025-11-29", start: "08:30", end: "11:30", title: "RME Forum", location: "Function Room 3", category: "Technical", type: "Physical", points: 3 },
+            { id: 605, day: "2025-11-29", start: "13:00", end: "15:30", title: "Technical Session", location: "Function Room 1", category: "Technical", type: "Physical", points: 2 },
+            { id: 606, day: "2025-11-29", start: "13:00", end: "15:30", title: "Technical Session", location: "Function Room 3", category: "Technical", type: "Physical", points: 2 },
+            { id: 607, day: "2025-11-29", start: "16:30", end: "20:00", title: "Closing Ceremonies", location: "Function Rooms 1-4", category: "Main", type: "Physical", points: 0 },
+            { id: 608, day: "2025-11-29", start: "08:00", end: "16:00", title: "Canvassing of Ballots", location: "Meeting Rooms 4, 5 & 6", category: "Business", type: "Physical", points: 0 },
+            { id: 609, day: "2025-11-29", start: "08:00", end: "12:00", title: "Chapter Officers Meeting", location: "Microtel Hotel, Pasay City", category: "Business", type: "Physical", points: 0 },
+        ];
 
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Investment & Financing Analysis</h3>
-                     <div id="zero-investment-analysis" class="space-y-4">
-                        <div><label class="text-sm font-medium text-slate-500">Estimated Investment Cost</label><div id="zero-investment" class="output-group"></div></div>
-                        <div id="zero-payback-container"><label class="text-sm font-medium text-slate-500">Payback Period</label><div id="zero-payback" class="output-group"></div></div>
-                        <div id="zero-amortization-container" class="hidden"><label id="zero-amortization-label" class="text-sm font-medium text-slate-500">Monthly Amortization</label><div id="zero-amortization" class="output-group"></div></div>
-                        <div id="zero-interest-container" class="hidden"><label class="text-sm font-medium text-slate-500">Total Interest Paid</label><div id="zero-interest" class="output-group"></div></div>
-                    </div>
-                    
-                    <hr class="my-6 border-slate-200">
-                    <h3 class="text-lg font-bold text-center mb-4 text-slate-700">Environmental Impact (Annual)</h3>
-                    <div id="zero-env" class="space-y-3"></div>
-
-                    <p id="net-metering-disclaimer" class="text-xs text-slate-500 mt-6">**Savings are based on an estimated 40% self-consumption and an export rate of ₱5.49/kWh under the net metering program in the Philippines.</p>
-                </div>
-            </div>
-        </div>
-        
-        <footer class="text-center mt-8">
-            <button id="support-button" class="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-200 shadow-md hover:shadow-lg flex items-center gap-2 mx-auto">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h1a1 1 0 011 1v3.5a1.5 1.5 0 01-3 0V7a1 1 0 00-1-1H9.5a1.5 1.5 0 010-3H10v.5z"></path><path d="M4 6a2 2 0 012-2h2.5a1.5 1.5 0 010 3H6a2 2 0 01-2-2zm2.5 4a1.5 1.5 0 000 3H10v1.5a1.5 1.5 0 003 0V14a1 1 0 00-1-1h-1a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5z"></path></svg>
-                Support Us
-            </button>
-        </footer>
-
-        <!-- Donation Modal -->
-        <div id="donation-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
-            <div class="bg-white rounded-lg shadow-xl p-8 max-w-xs w-full text-center relative">
-                 <button onclick="closeDonationModal()" class="absolute top-2 right-2 text-slate-400 hover:text-slate-600">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Donate for beer money</h3>
-                <p class="text-sm text-slate-500 mb-4">GCash</p>
-                <img src="https://www.dropbox.com/scl/fi/khiyhojktogq5b4lu9rxw/Screenshot_20250713_223151_GCash.jpg?rlkey=sy4spjyzcbkasdwjnnuh7tggj&raw=1" alt="GCash QR Code" class="mx-auto rounded-md shadow-sm w-full max-w-[200px]" onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/475569?text=QR+Code';">
-                <p class="mt-4 font-semibold text-slate-700 text-lg">0936 923 8834</p>
-            </div>
-        </div>
-
-        <!-- Alert Modal -->
-        <div id="alert-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
-            <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center relative">
-                <h3 class="text-xl font-bold text-red-600 mb-4">Invalid Input</h3>
-                <p class="text-slate-600 mb-6"></p>
-                <button onclick="closeModal()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
-                    OK
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // --- Configuration based on Philippine setting ---
-        const CONFIG = {
-            DU_TOTAL_CUSTOMER_CHARGE: 12.5718, // PHP/kWh
-            NET_METERING_EXPORT_RATE: 5.49,    // PHP/kWh
-            SELF_CONSUMPTION: {
-                NO_BATTERY: {
-                    NIGHT: 0.40,
-                    DAY: 0.60
-                },
-                WITH_BATTERY: {
-                    NIGHT: 0.90,
-                    DAY: 0.70 
-                }
-            },
-            PANEL_WATTAGE_W: 550,
-            PEAK_SUN_HOURS: 4.5,
-            DAYS_IN_MONTH: 30.44,
-            AVAILABLE_INVERTER_SIZES: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 20, 25, 30, 40, 50, 60, 75, 100],
-            BATTERY_DOD: 0.80, // 80% Depth of Discharge
-            BATTERY_EFFICIENCY: 0.90, // 90%
-            BATTERY_OPTIONS: [
-                { id: 1, name: '51.2V 100AH', energyWh: 5000,  cost: 35000, warranty: 5 },
-                { id: 2, name: '51.2V 280AH', energyWh: 14000, cost: 80000, warranty: 5 },
-                { id: 3, name: '51.2V 314AH', energyWh: 16000, cost: 85000, warranty: 5 },
-                { id: 4, name: '51.2V 400AH', energyWh: 20000, cost: 118000, warranty: 8 },
-            ],
-             // Environmental factors per kWp per year
-            CO2_AVOIDED_PER_KWP_KG: 460, 
-            GASOLINE_LITERS_PER_KWP: 404,
-            TREES_PLANTED_PER_KWP: 24,
+        // --- HELPERS ---
+        const formatTime = (timeStr) => {
+            if(!timeStr) return '';
+            const [h, m] = timeStr.split(':');
+            const hour = parseInt(h);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const h12 = hour % 12 || 12;
+            return `${h12}:${m} ${ampm}`;
         };
 
-        // Data points for interpolation
-        const GRID_TIE_COST_DATA = [
-            { kwp: 3, cost: 95000 }, { kwp: 5, cost: 145000 }, { kwp: 6, cost: 165000 },
-            { kwp: 8, cost: 235000 }, { kwp: 10, cost: 275000 }, { kwp: 12, cost: 295000 },
-            { kwp: 15, cost: 375000 }, { kwp: 18, cost: 455000 }, { kwp: 20, cost: 505000 },
-        ];
-        
-        const SIZING_DATA = [
-            { bill: 10000, kwp: 5.40 }, { bill: 12500, kwp: 6.54 }, { bill: 20000, kwp: 15.12 },
-            { bill: 40000, kwp: 22.79 }, { bill: 121000, kwp: 63.33 }, { bill: 150000, kwp: 78.50 },
-            { bill: 180000, kwp: 94.20 }, { bill: 191000, kwp: 99.96 }
-        ];
-
-        const IDEAL_FOR_DATA = [
-            { kwp: 3, acu_1hp: 0, acu_1_5hp: 2, acu_2hp: 0, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
-            { kwp: 5, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 0, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
-            { kwp: 8, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 1, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
-            { kwp: 10, acu_1hp: 2, acu_1_5hp: 2, acu_2hp: 2, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
-            { kwp: 15, acu_1hp: 3, acu_1_5hp: 3, acu_2hp: 2, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] },
-            { kwp: 20, acu_1hp: 3, acu_1_5hp: 3, acu_2hp: 3, base_load: ['LED TV', 'Refrigerator', 'Lights', 'Electric Fan'] }
-        ];
-
-        // --- Icon Templates ---
-        const ICONS = {
-            rooftop: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>`,
-            system: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>`,
-            savings: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`,
-            investment: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
-            payback: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
-            co2: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0117.657 18.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1014.12 11.88l-4.242 4.242z"></path></svg>`,
-            gas: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0-6H7.5M15 12H9.5m-5 0h.01M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`,
-            tree: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`,
-            checkmark: `<svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`
+        const formatDate = (dateStr) => {
+            return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         };
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('utility-rate').value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
-            document.getElementById('export-rate').value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
-            document.getElementById('peak-sun-hours').value = CONFIG.PEAK_SUN_HOURS;
-            
-            const supportButton = document.getElementById('support-button');
-            supportButton.addEventListener('click', openDonationModal);
+        const getStatus = (ev, simTime) => {
+            const start = new Date(`${ev.day}T${ev.start}:00`);
+            const end = new Date(`${ev.day}T${ev.end}:00`);
+            if (simTime >= start && simTime <= end) return 'now';
+            if (simTime < start && (start - simTime) < 7200000) return 'soon'; // 2 hours
+            return 'future';
+        };
 
-            const financingSelect = document.getElementById('financing');
-            financingSelect.addEventListener('change', (e) => {
-                const financingDetails = document.getElementById('financing-details');
-                if (e.target.value === 'yes') {
-                    financingDetails.classList.remove('hidden');
-                } else {
-                    financingDetails.classList.add('hidden');
-                }
-            });
-            
-            const interestRateSelect = document.getElementById('interest-rate');
-            for (let i = 50; i <= 80; i++) {
-                const value = (i / 10).toFixed(1);
-                const option = document.createElement('option');
-                option.value = value;
-                option.textContent = `${value}%`;
-                if (value === '6.8') {
-                    option.selected = true;
-                }
-                interestRateSelect.appendChild(option);
-            }
-        });
-
-        function showAlert(message) {
-            const modal = document.getElementById('alert-modal');
-            if (modal) {
-                modal.querySelector('p').textContent = message;
-                modal.classList.remove('hidden');
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('alert-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        }
-        
-        // --- Donation Modal and Sound ---
-        let coinSynth;
-        try {
-            coinSynth = new Tone.Synth({
-                oscillator: { type: 'triangle' },
-                envelope: { attack: 0.001, decay: 0.1, sustain: 0.1, release: 0.1 }
-            }).toDestination();
-        } catch (e) {
-            console.error("Tone.js could not be initialized.", e);
-        }
-        
-
-        function playCoinSound() {
-            if (!coinSynth) return;
-            if (Tone.context.state !== 'running') {
-                Tone.start().catch(e => console.error("Tone.js could not start audio context.", e));
-            }
+        const playMarioCoin = () => {
             try {
-                coinSynth.triggerAttackRelease("B5", "16n", Tone.now());
-                coinSynth.triggerAttackRelease("E6", "16n", Tone.now() + 0.1);
-            } catch(e) {
-                console.error("Error playing sound.", e);
-            }
-        }
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                const osc1 = ctx.createOscillator(); const osc2 = ctx.createOscillator(); const gain = ctx.createGain();
+                osc1.type = 'square'; osc2.type = 'square';
+                osc1.frequency.setValueAtTime(988, ctx.currentTime);
+                osc2.frequency.setValueAtTime(1319, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                osc1.connect(gain); osc2.connect(gain); gain.connect(ctx.destination);
+                osc1.start(ctx.currentTime); osc1.stop(ctx.currentTime + 0.08);
+                osc2.start(ctx.currentTime + 0.08); osc2.stop(ctx.currentTime + 0.5);
+            } catch(e) { console.log("Audio blocked"); }
+        };
 
-        function openDonationModal() {
-            playCoinSound();
-            const modal = document.getElementById('donation-modal');
-            modal.classList.remove('hidden');
-        }
-        
-        function closeDonationModal() {
-            const modal = document.getElementById('donation-modal');
-            modal.classList.add('hidden');
-        }
+        // --- MAIN COMPONENT ---
+        function App() {
+            const [splash, setSplash] = useState(true);
+            const [time, setTime] = useState(new Date("2025-11-27T09:00:00"));
+            const [view, setView] = useState('home');
+            const [tab, setTab] = useState('all');
+            const [query, setQuery] = useState('');
+            const [favs, setFavs] = useState(() => JSON.parse(localStorage.getItem('favs') || '[]'));
+            const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('notes') || '{}'));
+            const [attended, setAttended] = useState(() => JSON.parse(localStorage.getItem('attended') || '[]'));
+            const [menuOpen, setMenuOpen] = useState(false);
+            
+            // Note Modal State
+            const [noteId, setNoteId] = useState(null);
+            const [noteText, setNoteText] = useState("");
+            const [notify, setNotify] = useState(null);
 
+            // Calendar State
+            const [selectedCalendarDate, setSelectedCalendarDate] = useState("2025-11-27");
 
-        function getInitialSystemSize(bill) {
-            SIZING_DATA.sort((a, b) => a.bill - b.bill);
-            if (bill <= SIZING_DATA[0].bill) return bill * (SIZING_DATA[0].kwp / SIZING_DATA[0].bill);
-            if (bill >= SIZING_DATA[SIZING_DATA.length - 1].bill) {
-                const last = SIZING_DATA[SIZING_DATA.length - 1];
-                const secondLast = SIZING_DATA[SIZING_DATA.length - 2];
-                const slope = (last.kwp - secondLast.kwp) / (last.bill - secondLast.bill);
-                return last.kwp + (bill - last.bill) * slope;
-            }
-            for (let i = 0; i < SIZING_DATA.length - 1; i++) {
-                if (bill >= SIZING_DATA[i].bill && bill < SIZING_DATA[i + 1].bill) {
-                    const lower = SIZING_DATA[i];
-                    const upper = SIZING_DATA[i + 1];
-                    const billRange = upper.bill - lower.bill;
-                    const kwpRange = upper.kwp - lower.kwp;
-                    const billFraction = (bill - lower.bill) / billRange;
-                    return lower.kwp + (billFraction * kwpRange);
-                }
-            }
-        }
+            // Persist Data
+            useEffect(() => { localStorage.setItem('favs', JSON.stringify(favs)); }, [favs]);
+            useEffect(() => { localStorage.setItem('notes', JSON.stringify(notes)); }, [notes]);
+            useEffect(() => { localStorage.setItem('attended', JSON.stringify(attended)); }, [attended]);
 
-        function getSystemCost(kwp, costData) {
-            costData.sort((a, b) => a.kwp - b.kwp);
-            if (kwp <= costData[0].kwp) return kwp * (costData[0].cost / costData[0].kwp);
-            if (kwp >= costData[costData.length - 1].kwp) {
-                const last = costData[costData.length - 1];
-                const secondLast = costData[costData.length - 2];
-                const slope = (last.cost - secondLast.cost) / (last.kwp - secondLast.kwp);
-                return last.cost + (kwp - last.kwp) * slope;
-            }
-            for (let i = 0; i < costData.length - 1; i++) {
-                if (kwp >= costData[i].kwp && kwp < costData[i+1].kwp) {
-                    const lower = costData[i];
-                    const upper = costData[i+1];
-                    const kwpRange = upper.kwp - lower.kwp;
-                    const costRange = upper.cost - lower.cost;
-                    const kwpFraction = (kwp - lower.kwp) / kwpRange;
-                    return lower.cost + (kwpFraction * costRange);
-                }
-            }
-        }
-
-        function getIdealForAppliances(kwp) {
-            IDEAL_FOR_DATA.sort((a, b) => a.kwp - b.kwp);
-            const first = IDEAL_FOR_DATA[0];
-            const last = IDEAL_FOR_DATA[IDEAL_FOR_DATA.length - 1];
-
-            const interpolate = (x, x0, y0, x1, y1) => {
-                if (x1 - x0 === 0) return y0;
-                return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+            const showNotify = (msg) => {
+                setNotify(msg);
+                setTimeout(() => setNotify(null), 2000);
             };
 
-            let appliances = {};
-
-            if (kwp <= first.kwp) {
-                const second = IDEAL_FOR_DATA[1];
-                appliances.acu_1hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_1hp, second.kwp, second.acu_1hp)));
-                appliances.acu_1_5hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_1_5hp, second.kwp, second.acu_1_5hp)));
-                appliances.acu_2hp = Math.max(0, Math.round(interpolate(kwp, first.kwp, first.acu_2hp, second.kwp, second.acu_2hp)));
-            }
-            else if (kwp >= last.kwp) {
-                const secondLast = IDEAL_FOR_DATA[IDEAL_FOR_DATA.length - 2];
-                appliances.acu_1hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_1hp, last.kwp, last.acu_1hp));
-                appliances.acu_1_5hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_1_5hp, last.kwp, last.acu_1_5hp));
-                appliances.acu_2hp = Math.round(interpolate(kwp, secondLast.kwp, secondLast.acu_2hp, last.kwp, last.acu_2hp));
-            }
-            else {
-                for (let i = 0; i < IDEAL_FOR_DATA.length - 1; i++) {
-                    const lower = IDEAL_FOR_DATA[i];
-                    const upper = IDEAL_FOR_DATA[i + 1];
-                    if (kwp >= lower.kwp && kwp < upper.kwp) {
-                        appliances.acu_1hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_1hp, upper.kwp, upper.acu_1hp));
-                        appliances.acu_1_5hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_1_5hp, upper.kwp, upper.acu_1_5hp));
-                        appliances.acu_2hp = Math.round(interpolate(kwp, lower.kwp, lower.acu_2hp, upper.kwp, upper.acu_2hp));
-                        break;
-                    }
-                }
-            }
-            
-            appliances.base_load = first.base_load;
-            return appliances;
-        }
-
-        function getBestBatteryCombination(requiredWh) {
-            if (requiredWh <= 0) return { cost: 0, specsString: "N/A" };
-
-            const batteries = CONFIG.BATTERY_OPTIONS;
-            const maxEnergy = Math.max(...batteries.map(b => b.energyWh));
-            const dpSize = Math.ceil(requiredWh) + maxEnergy;
-
-            const dp = Array(dpSize).fill(Infinity);
-            const path = Array(dpSize).fill(null);
-            dp[0] = 0;
-
-            for (let i = 1; i < dpSize; i++) {
-                for (const battery of batteries) {
-                    if (i >= battery.energyWh) {
-                        const cost = dp[i - battery.energyWh] + battery.cost;
-                        if (cost < dp[i]) {
-                            dp[i] = cost;
-                            path[i] = battery;
-                        }
-                    }
-                }
-            }
-
-            let minCost = Infinity;
-            let bestEnergy = -1;
-            for (let i = Math.ceil(requiredWh); i < dpSize; i++) {
-                if (dp[i] < minCost) {
-                    minCost = dp[i];
-                    bestEnergy = i;
-                }
-            }
-            
-            if (bestEnergy === -1) return { cost: 0, specsString: "Not enough data for calculation" };
-
-            const counts = {};
-            let currentEnergy = bestEnergy;
-            while (currentEnergy > 0 && path[currentEnergy]) {
-                const battery = path[currentEnergy];
-                counts[battery.id] = (counts[battery.id] || 0) + 1;
-                currentEnergy -= battery.energyWh;
-            }
-
-            const specsString = Object.entries(counts).map(([id, count]) => {
-                const battery = batteries.find(b => b.id == id);
-                return `${count} x ${battery.name} Battery (${battery.warranty}-Year Warranty)`;
-            }).join(', ');
-
-            return { cost: minCost, specsString };
-        }
-
-        function selectInverterSize(requiredSize) {
-            return CONFIG.AVAILABLE_INVERTER_SIZES.find(size => size >= requiredSize) || CONFIG.AVAILABLE_INVERTER_SIZES[CONFIG.AVAILABLE_INVERTER_SIZES.length - 1];
-        }
-        
-        function getSystemSpecs(panelKwp, inverterKwp, isHybrid, batterySpecsString) {
-            const numberOfPanels = Math.ceil((panelKwp * 1000) / CONFIG.PANEL_WATTAGE_W);
-            let warranties = `Solar Panels - 15 years; Inverter - 5 years; Workmanship - 1 year`;
-            // Battery warranty is now included in batterySpecsString, so we don't add it here.
-            return {
-                inverter: `${inverterKwp}kW ${isHybrid ? 'Hybrid' : 'Grid-Tie'} Inverter`,
-                panelString: `${numberOfPanels} x ${CONFIG.PANEL_WATTAGE_W}W Solar Panels (${panelKwp.toFixed(2)} kWp)`,
-                panelBrands: `SunPower, LG, Canadian Solar`,
-                inverterBrands: `Thinkpower, DEYE, SMA`,
-                warranties: warranties,
-                inclusions: `All-In Installation, Online Monitoring`,
-                battery: isHybrid ? batterySpecsString : null
-            };
-        }
-        
-        function calculateEnvironmentalImpact(panelKwp) {
-            return {
-                co2: panelKwp * CONFIG.CO2_AVOIDED_PER_KWP_KG,
-                gasLiters: panelKwp * CONFIG.GASOLINE_LITERS_PER_KWP,
-                trees: panelKwp * CONFIG.TREES_PLANTED_PER_KWP,
-            };
-        }
-
-        function calculateLoan(principal, annualRate, years) {
-            const monthlyRate = (annualRate / 100) / 12;
-            const numberOfPayments = years * 12;
-            if (monthlyRate === 0) {
-                return {
-                    monthlyPayment: principal / numberOfPayments,
-                    totalInterest: 0,
-                    totalPaid: principal
-                };
-            }
-            const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-            const totalPaid = monthlyPayment * numberOfPayments;
-            const totalInterest = totalPaid - principal;
-            return { monthlyPayment, totalInterest, totalPaid };
-        }
-
-        function calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batteryCost, financing) {
-            let investmentCost = getSystemCost(panelKwp, GRID_TIE_COST_DATA);
-            if (isNetMeteringPlan) {
-                const netMeteringFee = Math.min(55000, Math.max(30000, investmentCost * 0.1));
-                investmentCost += netMeteringFee;
-            }
-            investmentCost += batteryCost;
-            
-            const result = { investment: investmentCost };
-
-            if (financing.enabled) {
-                const loanDetails = calculateLoan(investmentCost, financing.interestRate, financing.loanTerm);
-                result.monthlyPayment = loanDetails.monthlyPayment;
-                result.totalInterest = loanDetails.totalInterest;
-                result.payback = null; // Payback is not directly comparable when financing
-            } else {
-                const annualSavingsForPayback = averageMonthlySavings * 12;
-                result.payback = (annualSavingsForPayback > 0) ? (investmentCost / annualSavingsForPayback) : Infinity;
-                result.monthlyPayment = null;
-                result.totalInterest = null;
-            }
-            
-            return result;
-        }
-
-        function calculatePlanMetrics(initialTargetKwp, type, monthlyBill, addBattery, utilityRate, exportRate, batteryHours, usageTime, financing, peakSunHours) {
-            const isNetMeteringPlan = type === 'net_metering';
-            
-            const inverterSize = selectInverterSize(initialTargetKwp);
-            const panelOversizeFactor = addBattery ? 1.2 : 1.1;
-            const numberOfPanels = Math.ceil((inverterSize * panelOversizeFactor * 1000) / CONFIG.PANEL_WATTAGE_W);
-            const panelKwp = (numberOfPanels * CONFIG.PANEL_WATTAGE_W) / 1000;
-            const rooftopArea = (panelKwp * 2.58) * 1.1;
-
-            let batterySystem = { cost: 0, specsString: null };
-            if (addBattery) {
-                const dailyKwh = (monthlyBill / utilityRate) / CONFIG.DAYS_IN_MONTH;
-                const overnightLoadWh = (dailyKwh / 24) * batteryHours * 1000;
-                const requiredCapacityWh = overnightLoadWh / (CONFIG.BATTERY_DOD * CONFIG.BATTERY_EFFICIENCY);
-                batterySystem = getBestBatteryCombination(requiredCapacityWh);
-            }
-
-            const specs = getSystemSpecs(panelKwp, inverterSize, addBattery, batterySystem.specsString);
-            const idealFor = getIdealForAppliances(panelKwp);
-            
-            const monthlyKwhGenerated = panelKwp * peakSunHours * CONFIG.DAYS_IN_MONTH;
-            let averageMonthlySavings;
-            
-            let currentSelfConsumption;
-            if(addBattery) {
-                currentSelfConsumption = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
-            } else {
-                currentSelfConsumption = usageTime === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
-            }
-
-
-            if (isNetMeteringPlan) {
-                const selfConsumedKwh = monthlyKwhGenerated * currentSelfConsumption;
-                const exportedKwh = monthlyKwhGenerated * (1 - currentSelfConsumption);
-                const savingsFromSelfConsumption = selfConsumedKwh * utilityRate;
-                const savingsFromExport = exportedKwh * exportRate;
-                averageMonthlySavings = savingsFromSelfConsumption + savingsFromExport;
-            } else {
-                 const selfConsumedKwh = monthlyKwhGenerated * currentSelfConsumption;
-                 averageMonthlySavings = selfConsumedKwh * utilityRate;
-            }
-            
-            averageMonthlySavings = Math.min(averageMonthlySavings, monthlyBill);
-            
-            const financials = calculateFinancials(panelKwp, averageMonthlySavings, isNetMeteringPlan, batterySystem.cost, financing);
-            const environmental = calculateEnvironmentalImpact(panelKwp);
-            
-            return { size: panelKwp, rooftopArea, averageSavings: averageMonthlySavings, specs, idealFor, ...financials, environmental };
-        }
-
-        function calculateSavings() {
-            const monthlyBill = parseFloat(document.getElementById('bill').value);
-            if (isNaN(monthlyBill) || monthlyBill <= 0) {
-                showAlert("Please enter a valid monthly bill amount.");
-                return;
-            }
-            const addBattery = document.getElementById('add-battery').value === 'yes';
-            const utilityRateInput = document.getElementById('utility-rate');
-            const exportRateInput = document.getElementById('export-rate');
-            const peakSunHoursInput = document.getElementById('peak-sun-hours');
-
-            let utilityRate = parseFloat(utilityRateInput.value) || CONFIG.DU_TOTAL_CUSTOMER_CHARGE;
-            let exportRate = parseFloat(exportRateInput.value) || CONFIG.NET_METERING_EXPORT_RATE;
-            let peakSunHours = parseFloat(peakSunHoursInput.value) || CONFIG.PEAK_SUN_HOURS;
-
-            if (peakSunHours < 3 || peakSunHours > 5) {
-                showAlert("Peak sun hours must be between 3 and 5. Using default value of 4.5.");
-                peakSunHoursInput.value = CONFIG.PEAK_SUN_HOURS;
-                return;
-            }
-            
-            if (utilityRate < 7 || utilityRate > 16) {
-                showAlert("Utility rate must be between ₱7.00 and ₱16.00.");
-                utilityRateInput.value = CONFIG.DU_TOTAL_CUSTOMER_CHARGE.toFixed(4);
-                return;
-            }
-
-            const maxExportRate = Math.min(8, utilityRate * 0.7);
-            if (exportRate > maxExportRate) {
-                showAlert(`Export rate cannot exceed ₱${maxExportRate.toFixed(2)}.`);
-                exportRateInput.value = CONFIG.NET_METERING_EXPORT_RATE.toFixed(2);
-                return;
-            }
-
-            const financing = {
-                enabled: document.getElementById('financing').value === 'yes',
-                interestRate: parseFloat(document.getElementById('interest-rate').value),
-                loanTerm: parseInt(document.getElementById('loan-term').value)
-            };
-            
-            if (financing.enabled && financing.interestRate > 8) {
-                showAlert("An interest rate above 8% is quite high. Be cautious and review the terms from the financial institution. For comparison, Security Bank offers rates as low as 5.8% for a 5-year term.");
-                return;
-            }
-
-            const netMeteringInitialTarget = getInitialSystemSize(monthlyBill);
-            
-            if (netMeteringInitialTarget > 100) {
-                showAlert("The net-metering program in the Philippines has a limit of 100kWp. Please contact us for solutions above this size.");
-                document.getElementById('results').classList.add('hidden');
-                return;
-            }
-            
-            const gridTieInitialTarget = netMeteringInitialTarget * 0.85;
-
-            const gridTiePlan = calculatePlanMetrics(gridTieInitialTarget, 'grid_tie', monthlyBill, addBattery, utilityRate, exportRate, parseInt(document.getElementById('battery-hours').value), document.getElementById('usage-time').value, financing, peakSunHours);
-            const netMeteringPlan = calculatePlanMetrics(netMeteringInitialTarget, 'net_metering', monthlyBill, addBattery, utilityRate, exportRate, parseInt(document.getElementById('battery-hours').value), document.getElementById('usage-time').value, financing, peakSunHours);
-            
-            let selfConsumptionRateForDisplay;
-            if (addBattery) {
-                selfConsumptionRateForDisplay = document.getElementById('usage-time').value === 'daytime' ? CONFIG.SELF_CONSUMPTION.WITH_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.WITH_BATTERY.NIGHT;
-            } else {
-                selfConsumptionRateForDisplay = document.getElementById('usage-time').value === 'daytime' ? CONFIG.SELF_CONSUMPTION.NO_BATTERY.DAY : CONFIG.SELF_CONSUMPTION.NO_BATTERY.NIGHT;
-            }
-            
-            displayResults({ gridTie: gridTiePlan, netMetering: netMeteringPlan }, addBattery, selfConsumptionRateForDisplay, financing);
-        }
-
-        function displayResults(data, addBattery, selfConsumptionRate, financing) {
-            const isFinanced = financing.enabled;
-            const formatCurrency = (num) => `₱${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-            const formatYears = (num) => num === Infinity || num > 50 ? "Over 50 years" : `${num.toFixed(1)} years`;
-            const createSpecItem = (text) => `<div class="spec-list-item">${ICONS.checkmark}<span>${text}</span></div>`;
-            const renderOutput = (id, icon, value) => { document.getElementById(id).innerHTML = `${icon}<span class="output-value">${value}</span>`; };
-            
-            const renderEnvImpact = (containerId, envData) => {
-                const container = document.getElementById(containerId);
-                container.innerHTML = `
-                    <div class="output-group">${ICONS.co2} <span class="output-value">${Math.round(envData.co2).toLocaleString()} kg CO2 Emissions Reduced</span></div>
-                    <div class="output-group">${ICONS.gas} <span class="output-value">${Math.round(envData.gasLiters).toLocaleString()} liters of Gasoline Saved</span></div>
-                    <div class="output-group">${ICONS.tree} <span class="output-value">${Math.round(envData.trees).toLocaleString()} Equivalent Trees Planted</span></div>
-                `;
+            const toggleFav = (id) => {
+                setFavs(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+                showNotify(favs.includes(id) ? "Removed from Agenda" : "Added to Agenda");
             };
 
-            const renderIdealFor = (containerId, appliances) => {
-                const container = document.getElementById(containerId);
-                if (!container || !appliances) {
-                    container.innerHTML = ''; // Clear it if no data
-                    return;
-                };
+            const saveNote = () => {
+                setNotes(prev => ({ ...prev, [noteId]: noteText }));
+                setNoteId(null);
+                showNotify("Note Saved!");
+            };
 
-                let applianceItems = [];
-                if (appliances.acu_1hp > 0) applianceItems.push(`${appliances.acu_1hp} x 1.0hp Aircon`);
-                if (appliances.acu_1_5hp > 0) applianceItems.push(`${appliances.acu_1_5hp} x 1.5hp Aircon`);
-                if (appliances.acu_2hp > 0) applianceItems.push(`${appliances.acu_2hp} x 2.0hp Aircon`);
-                if (appliances.base_load && appliances.base_load.length > 0) {
-                    applianceItems = applianceItems.concat(appliances.base_load);
-                }
+            const generatePDF = () => {
+                const content = RAW_EVENTS.filter(e => notes[e.id]).map(e => 
+                    `${e.title}\n${e.day} | ${e.location}\nNOTE: ${notes[e.id]}\n----------------`
+                ).join('\n\n');
                 
-                const midPoint = Math.ceil(applianceItems.length / 2);
-                const col1Items = applianceItems.slice(0, midPoint);
-                const col2Items = applianceItems.slice(midPoint);
-
-                container.innerHTML = `
-                    <div class="grid grid-cols-2 gap-x-4">
-                        <div>${col1Items.map(item => createSpecItem(item)).join('')}</div>
-                        <div>${col2Items.map(item => createSpecItem(item)).join('')}</div>
-                    </div>
-                `;
+                if(!content) return showNotify("No notes to print!");
+                
+                const win = window.open('', '_blank');
+                win.document.write(`<pre>${content}\n\nGenerated by IIEE App</pre>`);
+                win.print();
             };
 
-            const consumptionText = selfConsumptionRate * 100;
-            const exportRateValue = (parseFloat(document.getElementById('export-rate').value) || CONFIG.NET_METERING_EXPORT_RATE).toFixed(2);
+            const filteredEvents = useMemo(() => {
+                let d = RAW_EVENTS.map(e => ({
+                    ...e, 
+                    status: getStatus(e, time),
+                    isFav: favs.includes(e.id),
+                    hasNote: !!notes[e.id]
+                })).sort((a,b) => new Date(`${a.day}T${a.start}`) - new Date(`${b.day}T${b.start}`));
 
-            document.getElementById('grid-tie-disclaimer').textContent = `*Savings are based on an estimated ${consumptionText}% self-consumption of generated power, as excess power is not exported for credit in this setup.`;
-            document.getElementById('net-metering-disclaimer').textContent = `**Savings are based on an estimated ${consumptionText}% self-consumption and an export rate of ₱${exportRateValue}/kWh.`;
+                if(query) d = d.filter(e => e.title.toLowerCase().includes(query.toLowerCase()));
+                if(view === 'calendar') return d.filter(e => e.day === selectedCalendarDate); // Calendar filter
+                if(tab === 'now') return d.filter(e => e.status === 'now');
+                if(tab === 'soon') return d.filter(e => e.status === 'soon');
+                if(tab === 'fav') return d.filter(e => e.isFav);
+                return d;
+            }, [time, tab, query, favs, notes, view, selectedCalendarDate]);
 
-            const subtextStyle = "text-lg font-medium text-slate-500";
-            
-            document.querySelector('#bawas-title').innerHTML = addBattery 
-                ? `Hybrid Solar System<br><span class='${subtextStyle}'>(With Battery)</span>` 
-                : `Grid-Tie Solar System<br><span class='${subtextStyle}'>(No Battery)</span>`;
+            const cpdTotal = attended.reduce((acc, id) => acc + (RAW_EVENTS.find(e => e.id === id)?.points || 0), 0);
 
-            document.querySelector('#zero-title').innerHTML = addBattery 
-                ? `Hybrid Solar System + Net Metering<br><span class='${subtextStyle}'>(With Battery)</span>` 
-                : `Net-Metering Solar System<br><span class='${subtextStyle}'>(No Battery)</span>`;
+            // --- RENDER CALENDAR ---
+            const renderCalendar = () => {
+                const daysInMonth = 30;
+                const startDayOffset = 6; // Nov 1, 2025 is Saturday
+                const grid = [];
+                for (let i = 0; i < startDayOffset; i++) grid.push(null);
+                for (let i = 1; i <= daysInMonth; i++) grid.push(i);
 
+                return (
+                    <div className="animate-slide-up">
+                        <h2 className="text-xl font-bold text-blue-900 flex items-center mb-4">
+                            <CalendarDays className="mr-2 text-blue-600" /> Event Calendar
+                        </h2>
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="font-bold text-lg text-gray-800">November 2025</h3>
+                                <div className="flex gap-1">
+                                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                                    <span className="text-xs text-gray-500">Event Day</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-7 gap-1 text-center mb-2">
+                                {['S','M','T','W','T','F','S'].map((d,i) => (
+                                    <div key={i} className="text-xs font-bold text-gray-400 py-1">{d}</div>
+                                ))}
+                            </div>
+                            <div className="grid grid-cols-7 gap-1">
+                                {grid.map((day, idx) => {
+                                    if (!day) return <div key={idx} className="aspect-square"></div>;
+                                    const dateStr = `2025-11-${String(day).padStart(2, '0')}`;
+                                    const hasEvent = RAW_EVENTS.some(e => e.day === dateStr);
+                                    const isSelected = selectedCalendarDate === dateStr;
+                                    return (
+                                        <button 
+                                            key={idx}
+                                            disabled={!hasEvent}
+                                            onClick={() => setSelectedCalendarDate(dateStr)}
+                                            className={`aspect-square rounded-lg flex flex-col items-center justify-center relative transition-all ${
+                                                isSelected ? 'bg-blue-600 text-white shadow-md scale-105 z-10' 
+                                                : hasEvent ? 'bg-blue-50 text-blue-900 hover:bg-blue-100 font-bold' 
+                                                : 'text-gray-300'
+                                            }`}
+                                        >
+                                            <span className="text-sm">{day}</span>
+                                            {hasEvent && !isSelected && <span className="w-1 h-1 bg-blue-400 rounded-full mt-1"></span>}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-gray-600 text-sm uppercase mb-3 flex items-center">
+                                Events for {new Date(selectedCalendarDate).toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'})}
+                            </h3>
+                            {filteredEvents.length === 0 ? (
+                                <div className="text-center py-8 text-gray-400 bg-white rounded-xl border border-dashed">
+                                    No events scheduled for this day.
+                                </div>
+                            ) : (
+                                <div className="space-y-3">
+                                    {filteredEvents.map(event => (
+                                        <div key={event.id} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-l-blue-500">
+                                            <div className="flex justify-between">
+                                                <span className="text-blue-900 font-bold text-xs">{formatTime(event.start)} - {formatTime(event.end)}</span>
+                                                <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-500 font-bold uppercase">{event.category}</span>
+                                            </div>
+                                            <h4 className="font-bold text-gray-800 mt-1">{event.title}</h4>
+                                            <div className="flex items-center text-xs text-gray-500 mt-1">
+                                                <MapPin size={10} className="mr-1" /> {event.location}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+            };
 
-            // --- RENDER GRID-TIE PLAN ---
-            renderOutput('bawas-system-size', ICONS.system, `${data.gridTie.size.toFixed(2)} kWp`);
-            renderOutput('bawas-savings', ICONS.savings, formatCurrency(data.gridTie.averageSavings));
-            renderOutput('bawas-rooftop-area', ICONS.rooftop, `${data.gridTie.rooftopArea.toFixed(2)} sq. m.`);
-            renderOutput('bawas-investment', ICONS.investment, formatCurrency(data.gridTie.investment));
-            
-            if (isFinanced) {
-                document.getElementById('bawas-payback-container').classList.add('hidden');
-                document.getElementById('bawas-amortization-container').classList.remove('hidden');
-                document.getElementById('bawas-interest-container').classList.remove('hidden');
-                const loanTerm = financing.loanTerm;
-                document.getElementById('bawas-amortization-label').textContent = `Monthly Amortization for ${loanTerm} ${loanTerm > 1 ? 'Years' : 'Year'}`;
-                renderOutput('bawas-amortization', ICONS.investment, formatCurrency(data.gridTie.monthlyPayment));
-                renderOutput('bawas-interest', ICONS.savings, formatCurrency(data.gridTie.totalInterest));
-            } else {
-                document.getElementById('bawas-payback-container').classList.remove('hidden');
-                document.getElementById('bawas-amortization-container').classList.add('hidden');
-                document.getElementById('bawas-interest-container').classList.add('hidden');
-                renderOutput('bawas-payback', ICONS.payback, formatYears(data.gridTie.payback));
-            }
+            // --- RENDER SPLASH ---
+            if(splash) return (
+                <div className="h-screen w-screen bg-gradient-to-br from-blue-900 to-indigo-900 flex flex-col items-center justify-center text-white p-6">
+                    <div className="w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center text-blue-900 text-4xl font-black mb-6 animate-bounce border-4 border-white shadow-xl">50</div>
+                    <h1 className="text-3xl font-bold text-center mb-2">IIEE 50th ANC</h1>
+                    <p className="text-center text-blue-200 text-sm mb-8 max-w-xs">Integrity • Innovation • Empowerment • Excellence</p>
+                    <button onClick={() => { playMarioCoin(); setSplash(false); }} className="bg-white text-blue-900 px-8 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 active:scale-95 transition-transform">
+                        <Play size={20} fill="currentColor" /> ENTER APP
+                    </button>
+                </div>
+            );
 
-            let gridTieSpecsHtml = [
-                createSpecItem(data.gridTie.specs.inverter),
-                createSpecItem(data.gridTie.specs.panelString),
-                data.gridTie.specs.battery ? createSpecItem(data.gridTie.specs.battery) : '',
-                createSpecItem(`<strong>Panel Brands:</strong> ${data.gridTie.specs.panelBrands}`),
-                createSpecItem(`<strong>Inverter Brands:</strong> ${data.gridTie.specs.inverterBrands}`),
-                createSpecItem(`<strong>Warranties:</strong> ${data.gridTie.specs.warranties}`),
-                createSpecItem(`<strong>Inclusions:</strong> ${data.gridTie.specs.inclusions}`),
-            ].filter(Boolean).join('');
-            document.getElementById('bawas-specs').innerHTML = gridTieSpecsHtml;
-            renderIdealFor('bawas-ideal-for', data.gridTie.idealFor);
-            renderEnvImpact('bawas-env', data.gridTie.environmental);
+            // --- RENDER APP ---
+            return (
+                <div className="flex flex-col h-full bg-gray-50">
+                    
+                    {/* Header */}
+                    <header className="bg-blue-900 text-white shrink-0 z-20 shadow-md">
+                        <div className="bg-black/20 px-4 py-1 text-[10px] flex justify-between items-center">
+                            <span>⚡ Dev: {DEV_NAME}</span>
+                            <a href={`tel:${DEV_CONTACT}`} className="flex items-center gap-1"><Phone size={10}/> {DEV_CONTACT}</a>
+                        </div>
+                        <div className="p-4 flex justify-between items-center">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-blue-900 font-bold border-2 border-white">50</div>
+                                <div>
+                                    <h1 className="font-bold leading-tight">IIEE Convention</h1>
+                                    <p className="text-[10px] text-blue-200">Nov 24-29, 2025 • SMX</p>
+                                </div>
+                            </div>
+                            <button onClick={() => setMenuOpen(true)}><Menu /></button>
+                        </div>
 
-            // --- RENDER NET-METERING PLAN ---
-            renderOutput('zero-system-size', ICONS.system, `${data.netMetering.size.toFixed(2)} kWp`);
-            renderOutput('zero-savings', ICONS.savings, formatCurrency(data.netMetering.averageSavings));
-            renderOutput('zero-rooftop-area', ICONS.rooftop, `${data.netMetering.rooftopArea.toFixed(2)} sq. m.`);
-            renderOutput('zero-investment', ICONS.investment, formatCurrency(data.netMetering.investment));
-            
-            if (isFinanced) {
-                document.getElementById('zero-payback-container').classList.add('hidden');
-                document.getElementById('zero-amortization-container').classList.remove('hidden');
-                document.getElementById('zero-interest-container').classList.remove('hidden');
-                 const loanTerm = financing.loanTerm;
-                document.getElementById('zero-amortization-label').textContent = `Monthly Amortization for ${loanTerm} ${loanTerm > 1 ? 'Years' : 'Year'}`;
-                renderOutput('zero-amortization', ICONS.investment, formatCurrency(data.netMetering.monthlyPayment));
-                renderOutput('zero-interest', ICONS.savings, formatCurrency(data.netMetering.totalInterest));
-            } else {
-                document.getElementById('zero-payback-container').classList.remove('hidden');
-                document.getElementById('zero-amortization-container').classList.add('hidden');
-                document.getElementById('zero-interest-container').classList.add('hidden');
-                renderOutput('zero-payback', ICONS.payback, formatYears(data.netMetering.payback));
-            }
+                        {/* Simulation Controls */}
+                        {view === 'home' && (
+                            <div className="px-4 pb-3">
+                                <div className="bg-white/10 rounded-lg p-2 flex justify-between items-center text-xs">
+                                    <div className="flex items-center gap-2 font-mono text-yellow-300">
+                                        <Clock size={14} />
+                                        {time.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} ({time.getDate()}th)
+                                    </div>
+                                    <div className="flex gap-1">
+                                        <button onClick={() => setTime(new Date(time.getTime()-86400000))} className="bg-white/20 px-2 py-1 rounded">-1D</button>
+                                        <button onClick={() => setTime(new Date(time.getTime()-3600000))} className="bg-white/20 px-2 py-1 rounded">-1H</button>
+                                        <button onClick={() => setTime(new Date(time.getTime()+3600000))} className="bg-white/20 px-2 py-1 rounded">+1H</button>
+                                        <button onClick={() => setTime(new Date(time.getTime()+86400000))} className="bg-white/20 px-2 py-1 rounded">+1D</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
-            let netMeteringSpecsHtml = [
-                createSpecItem(data.netMetering.specs.inverter),
-                createSpecItem(data.netMetering.specs.panelString),
-                data.netMetering.specs.battery ? createSpecItem(data.netMetering.specs.battery) : '',
-                createSpecItem(`<strong>Panel Brands:</strong> ${data.netMetering.specs.panelBrands}`),
-                createSpecItem(`<strong>Inverter Brands:</strong> ${data.netMetering.specs.inverterBrands}`),
-                createSpecItem(`<strong>Warranties:</strong> ${data.netMetering.specs.warranties}`),
-                createSpecItem(`<strong>Inclusions:</strong> ${data.netMetering.specs.inclusions}`),
-            ].filter(Boolean).join('');
-            document.getElementById('zero-specs').innerHTML = netMeteringSpecsHtml;
-            renderIdealFor('zero-ideal-for', data.netMetering.idealFor);
-            renderEnvImpact('zero-env', data.netMetering.environmental);
+                        {/* Tabs */}
+                        {view === 'home' && (
+                            <div className="flex px-4 gap-4 overflow-x-auto no-scrollbar text-sm font-medium border-b border-white/10">
+                                {['all','now','soon','fav'].map(t => (
+                                    <button key={t} onClick={() => setTab(t)} 
+                                        className={`pb-3 uppercase tracking-wide whitespace-nowrap border-b-2 transition-colors ${tab === t ? 'border-yellow-400 text-yellow-400' : 'border-transparent text-blue-300'}`}>
+                                        {t === 'fav' ? 'My Agenda' : t}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </header>
 
-            document.getElementById('results').classList.remove('hidden');
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    {/* Main Content */}
+                    <main className="flex-1 overflow-y-auto p-4 pb-40 space-y-4">
+                        
+                        {/* SEARCH BAR */}
+                        {view === 'home' && (
+                            <div className="relative">
+                                <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+                                <input 
+                                    type="text" placeholder="Search events..." 
+                                    value={query} onChange={e => setQuery(e.target.value)}
+                                    className="w-full pl-10 p-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                        )}
+
+                        {/* EVENT LIST */}
+                        {view === 'home' && (
+                            <>
+                                {filteredEvents.length === 0 && (
+                                    <div className="text-center py-10 text-gray-400">
+                                        <p>No events found.</p>
+                                        <button onClick={() => {setQuery(''); setTab('all');}} className="text-blue-500 text-sm mt-2 font-bold">Clear Filters</button>
+                                    </div>
+                                )}
+                                {filteredEvents.map(ev => (
+                                    <div key={ev.id} className={`bg-white p-4 rounded-xl shadow-sm border-l-4 ${ev.status === 'now' ? 'border-red-500 ring-1 ring-red-100' : ev.status === 'soon' ? 'border-orange-400' : 'border-blue-500'}`}>
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <span className={`text-sm font-bold ${ev.status === 'now' ? 'text-red-600' : 'text-blue-900'}`}>
+                                                    {formatTime(ev.start)} - {formatTime(ev.end)}
+                                                </span>
+                                                {ev.status === 'now' && <span className="ml-2 bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded animate-pulse">LIVE</span>}
+                                            </div>
+                                            <button onClick={() => toggleFav(ev.id)}>
+                                                <Star size={20} className={ev.isFav ? "fill-yellow-400 text-yellow-400" : "text-gray-300"} />
+                                            </button>
+                                        </div>
+                                        <h3 className="font-bold text-gray-800 leading-tight mb-1">{ev.title}</h3>
+                                        <div className="flex flex-wrap items-center text-xs text-gray-500 mb-3 gap-2">
+                                            <span className="flex items-center"><MapPin size={12} className="mr-1"/> {ev.location}</span>
+                                            <span className="hidden sm:inline">•</span>
+                                            <span className="flex items-center text-blue-600 bg-blue-50 px-2 py-0.5 rounded font-medium">{ev.category}</span>
+                                        </div>
+                                        <div className="flex gap-2 border-t pt-2">
+                                            <button onClick={() => { setNoteId(ev.id); setNoteText(notes[ev.id] || ""); }} 
+                                                className={`flex-1 py-1.5 rounded text-xs font-bold flex items-center justify-center gap-1 ${ev.hasNote ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'}`}>
+                                                <PenTool size={12}/> {ev.hasNote ? 'Edit Note' : 'Note'}
+                                            </button>
+                                            {ev.points > 0 && (
+                                                <button onClick={() => {
+                                                    setAttended(prev => prev.includes(ev.id) ? prev.filter(i => i !== ev.id) : [...prev, ev.id]);
+                                                    showNotify("Attendance Updated");
+                                                }} className={`flex-1 py-1.5 rounded text-xs font-bold flex items-center justify-center gap-1 ${attended.includes(ev.id) ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                                                    <Zap size={12} className={attended.includes(ev.id) ? "fill-current" : ""}/> {ev.points} CPD
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </>
+                        )}
+
+                        {/* VENUE GUIDE */}
+                        {view === 'guide' && (
+                            <div className="space-y-4 animate-slide-up">
+                                <h2 className="font-bold text-xl text-blue-900">Venue Guide</h2>
+                                {VENUE_GUIDE.map((g, i) => (
+                                    <div key={i} className="bg-white rounded-xl shadow-sm overflow-hidden">
+                                        <div className={`p-3 font-bold flex items-center gap-2 ${g.color}`}>
+                                            <g.icon size={18}/> {g.category}
+                                        </div>
+                                        <div className="divide-y">
+                                            {g.items.map((item, idx) => (
+                                                <div key={idx} className="p-3">
+                                                    <div className="flex justify-between font-bold text-sm text-gray-800">
+                                                        {item.name} <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-500">{item.loc}</span>
+                                                    </div>
+                                                    <p className="text-xs text-gray-500 mt-1">{item.desc}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* CALENDAR VIEW */}
+                        {view === 'calendar' && renderCalendar()}
+
+                        {/* MY NOTES */}
+                        {view === 'notes' && (
+                            <div className="animate-slide-up">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h2 className="font-bold text-xl text-blue-900">My Notes</h2>
+                                    <button onClick={generatePDF} className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-bold flex items-center gap-1">
+                                        <Printer size={14}/> Save PDF
+                                    </button>
+                                </div>
+                                <div className="space-y-3">
+                                    {Object.keys(notes).length === 0 && <div className="text-center text-gray-400 py-10">No notes yet.</div>}
+                                    {Object.entries(notes).map(([id, text]) => {
+                                        const ev = RAW_EVENTS.find(e => e.id == id);
+                                        if(!ev) return null;
+                                        return (
+                                            <div key={id} className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl">
+                                                <div className="flex justify-between mb-2">
+                                                    <h3 className="font-bold text-sm text-blue-900">{ev.title}</h3>
+                                                    <button onClick={() => { setNoteId(ev.id); setNoteText(text); }}><PenTool size={14} className="text-gray-400"/></button>
+                                                </div>
+                                                <p className="text-sm font-mono text-gray-700 whitespace-pre-wrap">{text}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* CPD */}
+                        {view === 'cpd' && (
+                            <div className="animate-slide-up text-center">
+                                <div className="bg-gradient-to-br from-blue-800 to-blue-600 text-white p-8 rounded-2xl shadow-lg mb-6">
+                                    <div className="text-6xl font-black mb-2">{cpdTotal}</div>
+                                    <div className="text-blue-200 text-sm">Total CPD Points Earned</div>
+                                </div>
+                                <p className="text-gray-500 text-xs">Check into events to earn points.</p>
+                                <div className="mt-8 text-left">
+                                    <h3 className="font-bold text-gray-700 mb-2 ml-1">History</h3>
+                                    <div className="bg-white rounded-xl shadow-sm divide-y">
+                                        {attended.length === 0 && <div className="p-4 text-gray-400 text-sm text-center">No events attended yet.</div>}
+                                        {attended.map(id => {
+                                            const ev = RAW_EVENTS.find(e => e.id === id);
+                                            if(!ev) return null;
+                                            return (
+                                                <div key={id} className="p-3 flex justify-between items-center">
+                                                    <div>
+                                                        <div className="font-bold text-sm text-gray-800">{ev.title}</div>
+                                                        <div className="text-xs text-gray-500">{ev.day}</div>
+                                                    </div>
+                                                    <div className="font-bold text-green-600">+{ev.points}</div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                    </main>
+
+                    {/* Navigation Bar */}
+                    <nav className="bg-white border-t px-6 py-3 fixed bottom-0 w-full flex justify-between items-center text-[10px] font-bold text-gray-400 z-30">
+                        <button onClick={() => setView('home')} className={`flex flex-col items-center gap-1 ${view === 'home' ? 'text-blue-600' : ''}`}>
+                            <Calendar size={22} /> Schedule
+                        </button>
+                        <button onClick={() => setView('calendar')} className={`flex flex-col items-center gap-1 ${view === 'calendar' ? 'text-blue-600' : ''}`}>
+                            <CalendarDays size={22} /> Calendar
+                        </button>
+                        <button onClick={() => setView('notes')} className="relative -top-6 bg-yellow-400 text-blue-900 p-4 rounded-full shadow-xl border-4 border-gray-50 transform transition-transform active:scale-95">
+                            <PenTool size={24} />
+                        </button>
+                        <button onClick={() => setView('cpd')} className={`flex flex-col items-center gap-1 ${view === 'cpd' ? 'text-blue-600' : ''}`}>
+                            <Award size={22} /> CPD
+                        </button>
+                        <button onClick={() => setMenuOpen(true)} className="flex flex-col items-center gap-1">
+                            <Menu size={22} /> Menu
+                        </button>
+                    </nav>
+
+                    {/* Note Modal */}
+                    {noteId && (
+                        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+                            <div className="bg-white w-full max-w-md rounded-2xl p-4 shadow-2xl animate-slide-up">
+                                <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-100">
+                                    <div className="flex items-center gap-2">
+                                        <Keyboard size={20} className="text-blue-600"/>
+                                        <div>
+                                            <h3 className="font-bold text-lg">Edit Note</h3>
+                                            <p className="text-xs text-gray-500">{RAW_EVENTS.find(e => e.id === noteId)?.title}</p>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setNoteId(null)}><X size={20}/></button>
+                                </div>
+                                <textarea 
+                                    className="w-full h-40 bg-yellow-50 border border-yellow-200 rounded-xl p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none font-sans text-base"
+                                    placeholder="Type your key takeaways here..."
+                                    value={noteText}
+                                    onChange={e => setNoteText(e.target.value)}
+                                    autoFocus
+                                ></textarea>
+                                <button onClick={saveNote} className="w-full bg-blue-900 text-white py-3 rounded-xl font-bold mt-4 flex items-center justify-center gap-2">
+                                    <Save size={18} /> Save Note
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Side Menu */}
+                    {menuOpen && (
+                        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setMenuOpen(false)}>
+                            <div className="absolute right-0 top-0 h-full w-64 bg-white shadow-2xl p-6 animate-slide-up" onClick={e => e.stopPropagation()}>
+                                <div className="flex justify-between items-center mb-8">
+                                    <h2 className="font-bold text-xl text-blue-900">Menu</h2>
+                                    <button onClick={() => setMenuOpen(false)}><X /></button>
+                                </div>
+                                <div className="space-y-4">
+                                    <button onClick={() => { setView('home'); setMenuOpen(false); }} className="w-full text-left py-2 border-b text-gray-700 font-medium hover:text-blue-600">Schedule List</button>
+                                    <button onClick={() => { setView('calendar'); setMenuOpen(false); }} className="w-full text-left py-2 border-b text-gray-700 font-medium hover:text-blue-600">Full Calendar</button>
+                                    <button onClick={() => { setView('guide'); setMenuOpen(false); }} className="w-full text-left py-2 border-b text-gray-700 font-medium hover:text-blue-600">Venue Guide</button>
+                                    <button onClick={() => { setView('notes'); setMenuOpen(false); }} className="w-full text-left py-2 border-b text-gray-700 font-medium hover:text-blue-600">My Notes</button>
+                                    <button onClick={() => { setView('cpd'); setMenuOpen(false); }} className="w-full text-left py-2 border-b text-gray-700 font-medium hover:text-blue-600">CPD Tracker</button>
+                                </div>
+                                <div className="mt-8 p-4 bg-blue-50 rounded-xl">
+                                    <p className="text-xs text-blue-500 font-bold uppercase mb-2">Developer</p>
+                                    <p className="font-bold text-blue-900">{DEV_NAME}</p>
+                                    <p className="text-xs text-gray-500">{DEV_CONTACT}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Toast Notification */}
+                    {notify && (
+                        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-xl text-sm font-bold z-50 animate-fade-in flex items-center gap-2 whitespace-nowrap">
+                            <CheckCircle size={16} className="text-green-400"/> {notify}
+                        </div>
+                    )}
+                </div>
+            );
         }
-        
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
